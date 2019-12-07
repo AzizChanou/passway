@@ -1,6 +1,6 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import generateRandomHexColor from '@/helpers/generateRandomHexColor';
 import shareLink from '@/helpers/shareLink';
 
@@ -8,8 +8,29 @@ const props = defineProps({
     event: {},
 })
 
-console.log(props.event);
+const ticketsForm = useForm({
+    name: '',
+    number: '',
+    email: '',
+    address: '',
+    quantity: 1,
+    pass_id: null
+})
+const submitOrder = () => {
+    console.log(ticketsForm);
+}
 
+const commentForm = useForm({
+    email: '',
+    text: '',
+    event_id: props.event?.id,
+});
+const submitComment = () => {
+    commentForm.post(route('comment.store', {
+        onFinish: () => commentForm.reset
+    }),
+    );
+};
 </script>
 
 <template>
@@ -20,7 +41,7 @@ console.log(props.event);
             <div class="flex flex-col justify-center flex-1 p-6 bg-slate-100">
                 <span class="text-sm uppercase">{{ event?.organizer?.name }}</span>
                 <h3 class="text-3xl font-bold">{{ event?.title }}</h3>
-                <span class="text-sm uppercase text-secondary">{{ `${event?.date} - ${event?.time}` }}</span>
+                <span class="text-sm uppercase text-secondary">{{ `${event?.start_date} - ${event?.time}` }}</span>
                 <span class="text-sm uppercase">{{ event?.place }}</span>
                 <p class="my-6">
                     {{ event?.description }}
@@ -50,39 +71,66 @@ console.log(props.event);
                     <p class="font-medium">Profile</p>
                     <p class="text-xs">Adipisci fuga autem eum!</p>
                 </div>
-                <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+                <form @submit.prevent="submitOrder" class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full sm:col-span-3">
                         <label for="website" class="text-sm">Type de tickets</label>
-                        <select id="website"
+                        <select v-model="ticketsForm.pass_id" id="website"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
                             <option selected>--Selectionner type de tickets--</option>
-                            <option v-for="passe in event?.passes" :key="passe?.id" :value="passe?.type">
+                            <option v-for="passe in event?.passes" :key="passe?.id" :value="passe?.id" required>
                                 {{ `${passe?.type} - ${passe?.price} CFA` }}
                             </option>
                         </select>
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.pass_id">
+                            {{ ticketsForm.errors.pass_id }}
+                        </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
-                        <label for="username" class="text-sm">Quantite</label>
-                        <input id="username" type="number" placeholder="Quantite"
-                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
+                        <label for="quantity" class="text-sm">Quantite</label>
+                        <input v-model="ticketsForm.quantity" id="quantity" type="number" placeholder="Quantite" min="1"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.quantity">
+                            {{ ticketsForm.errors.quantity }}
+                        </div>
                     </div>
-                    <div class="col-span-full">
+                    <div class="col-span-full sm:col-span-3">
+                        <label for="name" class="text-sm">Nom</label>
+                        <input v-model="ticketsForm.name" id="name" type="text" placeholder="Nom"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.name">
+                            {{ ticketsForm.errors.name }}
+                        </div>
+                    </div>
+                    <div class="col-span-full sm:col-span-3">
+                        <label for="address" class="text-sm">Adresse</label>
+                        <input v-model="ticketsForm.address" id="address" type="text" placeholder="Adresse"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.address">
+                            {{ ticketsForm.errors.address }}
+                        </div>
+                    </div>
+                    <div class="col-span-full sm:col-span-3">
                         <label for="email" class="text-sm">Email</label>
-                        <input id="email" type="email" placeholder="Email"
-                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" />
+                        <input v-model="ticketsForm.email" id="email" type="email" placeholder="Email"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.email">
+                            {{ ticketsForm.errors.email }}
+                        </div>
                     </div>
-                    <div class="col-span-full">
+                    <div class="col-span-full sm:col-span-3">
                         <label for="number" class="text-sm">Numero</label>
-                        <input id="number" type="text" placeholder="Numero"
-                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" />
+                        <input v-model="ticketsForm.number" id="number" type="text" placeholder="Numero"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.number">
+                            {{ ticketsForm.errors.number }}
+                        </div>
                     </div>
                     <div class="col-span-full flex flex-row-reverse">
-                        <button
+                        <button :disabled="ticketsForm.quantity <= 0 && ticketsForm.quantity === null"
+                            :class="{ 'opacity-50': ticketsForm.quantity <= 0 && ticketsForm.quantity === null }"
                             class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">Acheter</button>
                     </div>
-                    <input type="text" class="hidden" name="pass_id">
-                    <input type="text" class="hidden" name="event_id">
-                </div>
+                </form>
             </fieldset>
         </div>
         <div class="w-full mx-auto rounded bg-slate-100 p-4 mt-4">
@@ -101,21 +149,28 @@ console.log(props.event);
                     <div class="text-gray-800">{{ comment?.text }}</div>
                 </div>
             </div>
-            <fieldset class="w-full gap-6 rounded-md shadow-sm bg-slate-100 mt-4">
-                <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+            <div class="w-full gap-6 rounded-md shadow-sm bg-slate-100 mt-4">
+                <form @submit.prevent="submitComment" class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full">
-                        <label for="username" class="text-sm">Username</label>
-                        <input id="username" type="text" placeholder="Username"
-                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
+                        <label for="email" class="text-sm">Email</label>
+                        <input v-model="commentForm.email" id="email" type="email" placeholder="Email"
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required>
+                        <div class="text-sm text-red-600" v-if="commentForm.errors.email">
+                            {{ commentForm.errors.email }}
+                        </div>
                     </div>
                     <div class="col-span-full">
-                        <label for="bio" class="text-sm">Bio</label>
-                        <textarea id="bio" placeholder=""
-                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400"></textarea>
+                        <label for="comment" class="text-sm">Commentaire</label>
+                        <textarea v-model="commentForm.text" id="comment" placeholder="Votre commentaire..."
+                            class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400"
+                            required></textarea>
+                        <div class="text-sm text-red-600" v-if="commentForm.errors.text">
+                            {{ commentForm.errors.text }}
+                        </div>
                     </div>
                     <button class="col-span-full bg-primary text-white rounded p-2">Commenter</button>
-                </div>
-            </fieldset>
+                </form>
+            </div>
         </div>
     </GuestLayout>
 </template>

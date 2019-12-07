@@ -15,4 +15,9 @@ class EventCategory extends Model
      * @var array
      */
     protected $guarded = [];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             ]);
             Event::factory(3)->create([
                 'organizer_id' => $organizer->id,
-                'event_categorie_id' => EventCategory::all()->random(1)->first()->id
+                'event_category_id' => rand(1, EventCategory::all()->count())
             ])->each(function ($event) {
                 Pass::factory()->create([
                     'event_id' => $event->id

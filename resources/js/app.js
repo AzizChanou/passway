@@ -33,7 +33,7 @@ createInertiaApp({
             .use(plugin)
             .use(pinia)
             .use(ZiggyVue, Ziggy)
-            .use(installToaster, toasterOptions)
+            //.use(installToaster, toasterOptions)
             .component('MazBtn', MazBtn)
             .component('Mazinput', Mazinput)
             .component('MazCheckBox', MazCheckBox)

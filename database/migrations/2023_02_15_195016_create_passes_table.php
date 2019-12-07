@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('passes', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 8, 0);
             $table->integer('available_quantity');
             $table->foreignId('event_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

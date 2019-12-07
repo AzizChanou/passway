@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="container flex flex-col items-center p-4 mx-auto space-y-6 md:p-8">
+  <div class="cursor-move flex flex-col items-center p-4 mx-auto space-y-6 md:p-8">
     <p
       class="px-6 py-2 text-2xl font-semibold text-center sm:font-bold sm:text-3xl md:text-4xl lg:max-w-2xl xl:max-w-4xl text-primary">
       "{{ testimonial?.text }}"</p>

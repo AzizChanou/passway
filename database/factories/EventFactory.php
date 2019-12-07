@@ -18,11 +18,12 @@ class EventFactory extends Factory
     {
         return [
             'title' => fake()->streetName(),
-            'date' => fake()->dateTimeBetween('-365 days', '+700 days'),
+            'start_date' => fake()->dateTimeBetween('-365 days', '+700 days'),
+            'end_date' => fake()->dateTimeBetween('-1 days', '+700 days'),
             'time' => fake()->time(),
             'place' => fake()->streetAddress(),
             'description' => fake()->realText(),
-            'picture_path' => 'https://source.unsplash.com/random/100x100/?5'
+            'picture_path' => 'https://source.unsplash.com/random/100x100'
         ];
     }
 }

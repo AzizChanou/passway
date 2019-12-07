@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\EventCategory;
 use App\Models\Organizer;
+use App\Models\Pass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -31,7 +33,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Event/Create');
+        return Inertia::render('Event/Create', [
+            'eventCategories' => EventCategory::all()
+        ]);
     }
 
     /**
@@ -42,6 +46,14 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
+        $picture_name = auth()->user()->name . '_' . $request->title . '.' . $request->file('picture')->extension();
+        $picture_path = env('APP_URL') . "/storage" . '/' . $request->file('picture')->storeAs('event_picture', $picture_name, 'public');
+        Event::create([
+            'picture_path' => $picture_path,
+            'organizer_id' => auth()->user()->organizer->id,
+            ...$request->except('picture')
+        ]);
+        return redirect()->route('event.edit')->with('success', 'Evenement creer !');
     }
 
     /**
@@ -58,17 +70,6 @@ class EventController extends Controller
     }
 
     /**
-     * 
-     */
-    public function rechercheEvenements(Request $request)
-    {
-        return Inertia::render('Home/Index', [
-            'events' => $request->get('q') ? Event::searchEvents($request->get('q')) : Event::getIncomingEvents(12)
-        ]);
-    }
-
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Event  $event
@@ -76,8 +77,11 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return Inertia::render('Event/Create', [
-            'event' => Event::find($event->id),
+        $event = Event::find($event->id);
+        return Inertia::render('Event/Edit', [
+            'eventCategories' => EventCategory::all(),
+            'event' => $event,
+            'passes' => $event->passes,
         ]);
     }
 
@@ -91,6 +95,7 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, Event $event)
     {
         Event::updateEvent($event);
+        return redirect()->with('success', 'Evenement mis a jour !')->back();
     }
 
     /**
@@ -103,5 +108,15 @@ class EventController extends Controller
     {
         Event::destroy($id);
         return redirect()->with('success', 'Evenement supprimer !')->back();
+    }
+
+    /**
+     * 
+     */
+    public function rechercheEvenements(Request $request)
+    {
+        return Inertia::render('Home/Index', [
+            'events' => $request->get('q') ? Event::searchEvents($request->get('q')) : Event::getIncomingEvents(12)
+        ]);
     }
 }

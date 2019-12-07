@@ -16,13 +16,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->date('date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->time('time');
             $table->string('place');
             $table->string('description');
             $table->string('picture_path')->nullable();
             $table->foreignId('organizer_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('event_categorie_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('event_category_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

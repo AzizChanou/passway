@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, HasFactory;
+
+    protected $fillable = [
+        'email',
+        'text',
+        'event_id'
+    ];
 }

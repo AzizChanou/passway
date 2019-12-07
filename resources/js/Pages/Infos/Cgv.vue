@@ -1,7 +1,5 @@
 <script setup>
-import { Head } from "@inertiajs/inertia-vue3";
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import Icon from "@/Components/Icon.vue";
+import { Head } from "@inertiajs/vue3";
 
 const currentYear = new Date().getFullYear();
 </script>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\ProfileController;
@@ -29,9 +30,8 @@ Route::get('/', function () {
 
 Route::get('/search', [EventController::class, 'rechercheEvenements'])
     ->name('search');
-    
-Route::resource('event', EventController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
-Route::resource('pass', PassController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
+
+Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
 
 Route::inertia('/about', 'Infos/About')
     ->name('about');

@@ -47,17 +47,19 @@ class Event extends Model
 
     public static function getEventDetails($id)
     {
-        return self::findorfail($id)
-            ->with(['organizer', 'eventCategory', 'comments', 'passes', 'eventCategory'])
-            ->withCount('comments');
+        return self::where('id', $id)
+            ->with(['organizer', 'comments', 'passes', 'eventCategory'])
+            ->withCount('comments')
+            ->first();
     }
 
     public static function getIncomingEvents($limit = null)
     {
-        return self::where('date', '>=', now())
+        return self::where('start_date', '>=', now())
             ->with(['organizer', 'eventCategory', 'passes'])
             ->withCount('comments')
             ->limit($limit)
+            ->orderBy('start_date')
             ->get();
     }
 

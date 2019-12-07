@@ -9,26 +9,6 @@ use App\Http\Requests\UpdatePassRequest;
 class PassController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePassRequest  $request
@@ -36,18 +16,8 @@ class PassController extends Controller
      */
     public function store(StorePassRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pass  $pass
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pass $pass)
-    {
-        //
+        Pass::create($request->all());
+        return redirect()->back()->with('success', 'Pass creer !');
     }
 
     /**
@@ -81,6 +51,7 @@ class PassController extends Controller
      */
     public function destroy(Pass $pass)
     {
-        //
+        Pass::destroy($pass);
+        return redirect()->route('event.edit')->with('success', 'Pass supprimer !');
     }
 }

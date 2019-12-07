@@ -17,7 +17,7 @@ defineProps({
                 <img :src="event?.organizer?.picture_path" class="object-cover w-10 h-10 rounded-full shadow">
                 <div class="flex flex-col space-y-1">
                     <span class="text-sm font-semibold">{{ event?.organizer?.name }}</span>
-                    <span class="text-xs text-secondary">{{ timeElapsed(event?.date) }}</span>
+                    <span class="text-xs text-secondary">{{ timeElapsed(event?.start_date) }}</span>
                 </div>
             </div>
             <div class="text-sm">
@@ -35,7 +35,7 @@ defineProps({
         </div>
         <div class="flex flex-wrap justify-between items-center">
             <div class="flex space-x-2">
-                <span class="text-secondary text-sm font-mono">{{ event?.date }}</span>
+                <span class="text-secondary text-sm font-mono">{{ event?.start_date }}</span>
             </div>
             <div class="flex space-x-2 text-sm">
                 <div title="Type de tickets" class="flex items-center p-1 space-x-1.5">

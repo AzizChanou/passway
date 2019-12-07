@@ -1,29 +1,33 @@
 <script setup>
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import truncate from '@/helpers/truncate';
-import Create from '@/Pages/Event/Create.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { useModalStore } from '@/store/modal';
+import { watch } from 'vue';
+
+const modal = useModalStore();
 
 defineProps({
     organizer: {},
     events: {}
 })
 
-const modal = useModalStore();
+watch(modal.confirm, (confirm) => {
+    console.log(confirm);
+})
+
 </script>
 
 <template>
     <Head title="Tableau de bord" />
-
     <AdminLayout>
-        <div class="flex justify-between font-semibold my-2">
+        <div class="flex justify-between font-semibold my-6">
             <h2 class="mb-4 text-2xl font-semibold leading-tight">Evenements</h2>
-            <div class="">
-                <MazBtn @click="modal.toggleModal(true, 'Supprimer', Create)" class="">
-                    Creer un evenement
-                </MazBtn>
-            </div>
+            <Link :href="route('event.create')">
+            <MazBtn>
+                Creer un evenement
+            </MazBtn>
+            </Link>
         </div>
         <div class="overflow-x-auto rounded">
             <table class="min-w-full text-xs">

@@ -13,6 +13,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PassController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('order', OrderController::class);
 
-    Route::resource('event', EventController::class)->except(['index', 'show']);
+    Route::resource('event', EventController::class)->except(['show']);
 
     Route::resource('organizer', OrganizerController::class)->except(['index', 'show']);
 
@@ -77,6 +78,9 @@ Route::middleware('auth')->group(function () {
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'create'])->name('profile.create');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('event/{event}', [EventController::class, 'show'])->name('event.show');
