@@ -3,6 +3,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Event;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,8 +20,10 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+    return Inertia::render('Home/Index', [
+        'events' => Event::newEvent()
+    ]);
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -35,5 +38,20 @@ Route::middleware('auth')->group(function () {
 Route::resource('event', EventController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
 Route::resource('pass', PassController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
 
+
+Route::inertia('/about', 'Infos/About')
+    ->name('about');
+
+Route::inertia('/faqs', 'Infos/Faqs')
+    ->name('faqs');
+
+Route::inertia('/cgu', 'Infos/Cgu')
+    ->name('cgu');
+
+Route::inertia('cgv', 'Infos/Cgv')
+    ->name('cgv');
+
+Route::inertia('stats', 'Orphan/Stat')
+    ->name('stats');
 
 require __DIR__ . '/auth.php';
