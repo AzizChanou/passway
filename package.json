@@ -17,7 +17,9 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "dropzone": "^5.9.3",
         "kkiapay": "^2.0.15",
+        "libphonenumber-js": "^1.10.21",
         "maz-ui": "^3.6.12",
         "pinia": "^2.0.30",
         "primeicons": "^6.0.1",

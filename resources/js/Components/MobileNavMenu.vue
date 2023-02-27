@@ -6,26 +6,51 @@ const currentYear = new Date().getFullYear();
 
 <template>
     <div id="menu"
-        class="transition-all ease-in-out duration-500 flex overflow-auto fixed top-0 z-10 left-0 h-full bg-primary text-white shadow-md flex-col md:hidden justify-between w-0">
-        <div class="p-8 py-20">
-            <ul class="flex flex-col space-y-3 font-semibold divide-y-2">
-                <li class="p-2">
-                    <Link :href="route('home')" :class="{
-                        'font-bold':
-                            $page.url === '/',
-                    }">A propos
+        class="transition-all ease-in-out duration-500 flex overflow-hidden fixed top-0 z-10 left-0 h-full bg-primary text-white shadow-md flex-col lg:hidden justify-between w-0">
+        <div class="p-8 py-24">
+            <ul class="flex flex-col space-y-3 divide-y-2">
+                <li class="p-2" :class="{
+                    'font-bold':
+                        $page.url === '/' || $page.url == '/search?q=*',
+                }">
+                    <Link :href="route('home')">
+                    Accueil
+                    </Link>
+                </li>
+                <li class="p-2" v-if="$page.props.auth.user" :class="{
+                    'font-bold':
+                        $page.url === '/dashboard',
+                }">
+                    <Link :href="route('dashboard')">
+                    Dashboard
+                    </Link>
+                </li>
+                <li class="p-2" :class="{
+                    'font-bold':
+                        $page.url === '/contact',
+                }">
+                    <Link :href="route('contact')">
+                    Contacts
+                    </Link>
+                </li>
+                <li class="p-2" :class="{
+                    'font-bold':
+                        $page.url === '/about',
+                }">
+                    <Link :href="route('about')">
+                    A propos
                     </Link>
                 </li>
                 <li class="p-2">
-                    <Link v-if="$page.props.auth && $page.props.auth.user" :href="route('home')" method="post" as="button">
+                    <Link v-if="$page.props.auth && $page.props.auth.user" :href="route('logout')" method="post"
+                        as="button">
                     Déconnexion
                     </Link>
-                    <Link v-else :href="route('home')">Se connecter</Link>
                 </li>
             </ul>
         </div>
         <div class="w-full p-4 text-sm flex flex-col text-center">
-            <span> Passway 1.0</span>
+            <span> Passway 0.1.0</span>
             <span class="text-center">
                 &copy; {{ currentYear }} Passway . Tous droits reservés.
             </span>

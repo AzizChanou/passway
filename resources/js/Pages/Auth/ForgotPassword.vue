@@ -1,9 +1,5 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps({
@@ -20,10 +16,11 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Forgot Password" />
+    <AuthenticatedLayout>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <Head title="Mot de passe oublié" />
+
+        <div class="mb-4 text-sm text-slate-400">
             Forgot your password? No problem. Just let us know your email address and we will email you a password reset
             link that will allow you to choose a new one.
         </div>
@@ -33,27 +30,15 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+            <div class="mt-4">
+                <Mazinput :hint="form.errors.email" id="email" type="email" label="Email" class="mt-1  "
+                    v-model="form.email" autocomplete="email" required />
             </div>
-
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </PrimaryButton>
+                <MazBtn :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Récupérer mot de passe
+                </MazBtn>
             </div>
         </form>
-    </GuestLayout>
+    </AuthenticatedLayout>
 </template>

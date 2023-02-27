@@ -7,9 +7,9 @@ const props = defineProps({
 
 const color = computed(() => {
     if (props.color === 'dark') {
-        return "assets/img/logo_dark.svg"
+        return "./../../assets/img/logo_dark.svg"
     } else {
-        return "assets/img/logo_light.svg"
+        return "./../../assets/img/logo_light.svg"
     }
 })
 </script>

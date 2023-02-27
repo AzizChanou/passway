@@ -4,6 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Event;
+use App\Models\EventCategory;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,26 +22,22 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Home/Index', [
-        'events' => Event::newEvent()
-    ]);
+        'events' => Event::getIncomingEvents(12),
+        'categories' => EventCategory::all(),
+    ])->with('flash.success', 'Test ok');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+Route::get('/search', [EventController::class, 'rechercheEvenements'])
+    ->name('search');
+    
 Route::resource('event', EventController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
 Route::resource('pass', PassController::class)->except(['edit', 'update', 'destroy', 'create', 'store']);
 
-
 Route::inertia('/about', 'Infos/About')
     ->name('about');
+
+Route::inertia('/contact', 'Infos/Contact')
+    ->name('contact');
 
 Route::inertia('/faqs', 'Infos/Faqs')
     ->name('faqs');

@@ -1,16 +1,6 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
-defineProps({
-    canResetPassword: Boolean,
-    status: String,
-});
 
 const form = useForm({
     email: '',
@@ -19,6 +9,7 @@ const form = useForm({
 });
 
 const submit = () => {
+    //console.log(form);
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
@@ -26,65 +17,37 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
+    <AuthenticatedLayout>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
+        <Head title="S'inscrire" />
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+                <Mazinput :hint="form?.errors?.email" :error="!!form.errors.email" id="email" type="email" label="Email"
+                    class="mt-1  " v-model="form.email" required autofocus autocomplete="email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
+                <Mazinput :hint="form?.errors?.password" :error="!!form.errors.password" id="password" type="password"
+                    label="Mot de passe" class="mt-1  " v-model="form.password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">
                 <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <input type="checkbox" class="rounded border-0" name="remember" v-model="form.remember" />
+                    <span class="ml-2 text-sm text-slate-400">Remember me</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Forgot your password?
+                <Link :href="route('password.request')" class="underline text-sm text-slate-400">
+                Mot de passe oublié?
                 </Link>
 
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
+                <MazBtn @click="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    Se connecter
+                </MazBtn>
             </div>
         </form>
-    </GuestLayout>
+    </AuthenticatedLayout>
 </template>

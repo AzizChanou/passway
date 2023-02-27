@@ -1,50 +1,51 @@
 <script setup>
-import { useToast } from 'maz-ui'
+import { usePage } from '@inertiajs/vue3';
+import { useToast } from 'maz-ui';
+import { onBeforeMount, onMounted, ref, watch } from 'vue';
 
-const { toast } = useToast()
+const { toast } = useToast();
+const page = usePage();
 
-function showInfo() {
-    toast.info('Info message', {
-        position: 'top',
-    })
+function showInfo(message) {
+    toast.info(message)
 }
 
-function showError() {
-    toast.error('Error message', {
-        position: 'bottom',
-        timeout: 1000,
-    })
+function showError(message) {
+    toast.error(message)
 }
 
-function showWarning() {
-    toast.warning('Warning message', {
-        position: 'top-right'
-    })
+function showWarning(message) {
+    toast.warning(message)
 }
 
-function showSuccess() {
-    toast.success('Success message', {
-        position: 'bottom-left',
-        persistent: true,
-    })
+function showSuccess(message) {
+    toast.success(message)
 }
+
+const props = ref(page.props.flash);
+showSuccess(newFlash.success)
+watch(() => props.value,
+    (newFlash) => {
+        console.table(newFlash, "Test OKKKKKKKK");
+        /*   switch (newFlash) {
+              case newFlash.success:
+                  showSuccess(newFlash.success);
+                  break;
+              case newFlash.info:
+                  showInfo(newFlash.info);
+                  break;
+              case newFlash.error:
+                  showError(newFlash.error);
+                  break;
+              case newFlash.warning:
+                  showWarning(newFlash.warning);
+                  break;
+              default:
+                  break;
+          } */
+    },
+    { deep: true }
+);
 </script>
 
-
-<template>
-    <MazBtn color="info" @click="showInfo">
-        Show persistent info toast on top
-    </MazBtn>
-
-    <MazBtn color="danger" @click="showError">
-        Show error toast on bottom with 1s timeout
-    </MazBtn>
-
-    <MazBtn color="warning" @click="showWarning">
-        Show warning toast on top right
-    </MazBtn>
-
-    <MazBtn color="success" @click="showSuccess">
-        Show persistent success toast on bottom left
-    </MazBtn>
-</template>
+<template></template>

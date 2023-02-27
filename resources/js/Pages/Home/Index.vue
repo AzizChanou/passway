@@ -1,28 +1,23 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import Category from '@/Components/Category.vue'
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import EventCard from '@/Components/EventCard.vue';
 import Testimonials from '@/Components/Testimonials.vue';
+import Banner from '@/Components/Banner.vue';
 
 const props = defineProps({
-    categories: Object,
+    categories: {},
     events: {}
-})
+});
+
 </script>
 
 <template>
     <Head title="Accueil" />
-    <GuestLayout>
+    <GuestLayout class="">
         <Category :categories="categories" />
-        <div>
-            <h2 class="text-2xl font-medium">
-                Testimonials
-            </h2>
-            <div class="w-full h-64 rounded bg-primary p-4">
-                <img src="https://" alt="" class="object-cover">
-            </div>
-        </div>
+        <Banner />
         <div>
             <h2 class="text-2xl font-medium">
                 Evenements

@@ -15,42 +15,24 @@ import { Link } from '@inertiajs/vue3';
                     </Link>
                 </div>
                 <div class="col-span-6 text-center md:text-left md:col-span-3">
-                    <p class="pb-1 text-lg font-medium">Category</p>
+                    <p class="pb-1 text-lg font-medium">Informations</p>
                     <ul>
                         <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
+                            <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
+                            <Link class="hover:text-tertiary" :href="route('faqs')">FAQS</Link>
                         </li>
                     </ul>
                 </div>
                 <div class="col-span-6 text-center md:text-left md:col-span-3">
-                    <p class="pb-1 text-lg font-medium">Category</p>
+                    <p class="pb-1 text-lg font-medium">Informations</p>
                     <ul>
                         <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
+                            <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
                         </li>
                         <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
-                        </li>
-                        <li>
-                            <a rel="noopener noreferrer" href="#" class="hover:text-secondary">Link</a>
+                            <Link class="hover:text-tertiary" :href="route('faqs')">FAQS</Link>
                         </li>
                     </ul>
                 </div>
@@ -66,14 +48,14 @@ import { Link } from '@inertiajs/vue3';
                     </a>
                 </div>
                 <div class="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
-                    <a rel="noopener noreferrer" href="#" title="Email"
+                    <a rel="noopener noreferrer" target="_blank" href="mailto:azizchanou@gmail.com" title="Email"
                         class="flex items-center justify-center w-10 h-10 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                         </svg>
                     </a>
-                    <a rel="noopener noreferrer" href="#" title="Twitter"
+                    <a rel="noopener noreferrer" target="_blank" href="https://twitter.com/azizchanou" title="Twitter"
                         class="flex items-center justify-center w-10 h-10 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" class="w-5 h-5">
                             <path
@@ -81,7 +63,7 @@ import { Link } from '@inertiajs/vue3';
                             </path>
                         </svg>
                     </a>
-                    <a rel="noopener noreferrer" href="#" title="GitHub"
+                    <a rel="noopener noreferrer" target="_blank" href="https://github.com/AzizChanou" title="GitHub"
                         class="flex items-center justify-center w-10 h-10 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5">
                             <path

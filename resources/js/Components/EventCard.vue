@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex flex-col min-w-full max-w-sm p-4 overflow-hidden bg-white rounded-lg shadow">
+    <div class="flex flex-col min-w-full max-w-sm p-4 overflow-hidden bg-slate-100 rounded-lg shadow">
         <div class="flex justify-between">
             <div class="flex space-x-4">
                 <img alt="" src="https://source.unsplash.com/100x100/?portrait"
@@ -41,7 +41,7 @@ defineProps({
             <div class="flex space-x-2 text-sm">
                 <div title="Type de tickets" class="flex items-center p-1 space-x-1.5">
                     <i class="text-secondary fi-sr-ticket"></i>
-                    <span>{{ event?.tickets_count }}</span>
+                    <span>{{ event?.passes.reduce((acc, passe) => acc + passe.available_quantity, 0) }}</span>
                 </div>
                 <div title="Nombre de commentaires" class="flex items-center p-1 space-x-1.5">
                     <i class="text-secondary fi-sr-comments"></i>

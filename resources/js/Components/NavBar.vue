@@ -1,6 +1,8 @@
 <script setup>
 import Logo from '@/Components/Logo.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import useThrottle from '@/helpers/useThrottle';
+import { ref } from 'vue';
 
 const showMenu = () => {
     navMenu.classList.toggle("active");
@@ -8,48 +10,58 @@ const showMenu = () => {
     menu.classList.toggle("w-0");
 }
 
+const recherche = ref(null);
+
+const searchEvents = useThrottle(() => {
+    router.get(route('search'), { q: recherche.value }, { preserveState: true });
+}, 500)
+
 </script>
 
 <template>
-    <div class="h-16 w-full bg-primary p-4 flex items-center shadow z-30 sticky">
-        <div class="max-w-screen-xl w-full flex justify-between items-center mx-auto">
+    <header class="p-4 bg-primary text-gray-100 shadow z-30 sticky">
+        <div class="container flex justify-between h-14 mx-auto max-w-screen-xl items-center">
             <Link :href="route('home')">
             <Logo color="light" class="h-12 p-2" />
             </Link>
-
-            <div class="hidden md:flex text-white font-medium">
-                <ul class="flex space-x-8">
-                    <li class="p-1 border-b-2 border-transparent hover:border-b-white duration-300" :class="{
-                        'border-b-white':
-                            $page.url === '/',
-                    }">
-                        <Link :href="route('home')">Accueil
-                        </Link>
-                    </li>
-                    <li class="p-1 border-b-2 border-transparent hover:border-b-white duration-300" :class="{
-                        'border-b-white':
-                            $page.url === '/about',
-                    }">
-                        <Link :href="route('about')">Menu
-                        </Link>
-                    </li>
-                    <li class="p-1 border-b-2 border-transparent hover:border-b-white duration-300" :class="{
-                        'border-b-white':
-                            $page.url === '/about',
-                    }">
-                        <Link :href="route('about')">A propos
-                        </Link>
-                    </li>
-                    <li class="p-1 border-b-2 border-transparent hover:border-b-white duration-300" :class="{
-                        'border-b-white':
-                            $page.url === '/bnm',
-                    }">
-                        <Link :href="route('about')"><i class="fi-sr-shopping-bag"></i>
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-
+            <ul class="items-stretch hidden space-x-3 md:flex">
+                <li :class="{
+                    'text-tertiary border-tertiary':
+                        $page.url === '/' || $page.url == '/search?q=*',
+                }">
+                    <Link :href="route('home')"
+                        class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
+                    Accueil
+                    </Link>
+                </li>
+                <li v-if="$page.props.auth.user" :class="{
+                    'text-tertiary border-tertiary':
+                        $page.url === '/dashboard',
+                }">
+                    <Link :href="route('dashboard')"
+                        class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
+                    Dashboard
+                    </Link>
+                </li>
+                <li :class="{
+                    'text-tertiary border-tertiary':
+                        $page.url === '/contact',
+                }">
+                    <Link :href="route('contact')"
+                        class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
+                    Contacts
+                    </Link>
+                </li>
+                <li :class="{
+                    'text-tertiary border-tertiary':
+                        $page.url === '/about',
+                }">
+                    <Link :href="route('about')"
+                        class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
+                    A propos
+                    </Link>
+                </li>
+            </ul>
             <div class="md:hidden">
                 <div id="navMenu" @click="showMenu()" class="z-50 sticky">
                     <span></span>
@@ -58,7 +70,7 @@ const showMenu = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 
 

@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrganizerController;
 use App\Http\Controllers\PassController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -61,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
+
     Route::resource('order', OrderController::class);
 
     Route::resource('event', EventController::class)->except(['index', 'show']);
@@ -68,4 +70,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('organizer', OrganizerController::class)->except(['index', 'show']);
 
     Route::resource('pass', PassController::class)->except(['index', 'show']);
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->middleware('verified')->name('dashboard');
+
+    //Profile
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

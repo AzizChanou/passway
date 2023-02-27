@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Organizer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -16,6 +19,9 @@ class EventController extends Controller
      */
     public function index()
     {
+        return Inertia::render('Event/Index', [
+            // 'events' => Organizer::getOrganizerEvents(),
+        ]);
     }
 
     /**
@@ -25,7 +31,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Event/Create');
     }
 
     /**
@@ -36,7 +42,6 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
     }
 
     /**
@@ -48,9 +53,20 @@ class EventController extends Controller
     public function show(Event $event)
     {
         return Inertia::render('Event/Show', [
-            'event' => Event::getEventDetails($event),
+            'event' => Event::getEventDetails($event->id),
         ]);
     }
+
+    /**
+     * 
+     */
+    public function rechercheEvenements(Request $request)
+    {
+        return Inertia::render('Home/Index', [
+            'events' => $request->get('q') ? Event::searchEvents($request->get('q')) : Event::getIncomingEvents(12)
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -60,7 +76,9 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return Inertia::render('Event/Create', [
+            'event' => Event::find($event->id),
+        ]);
     }
 
     /**
@@ -72,7 +90,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        Event::updateEvent($event);
     }
 
     /**
@@ -83,6 +101,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        Event::destroy($event->id);
+        return redirect()->with('success', 'Evenement supprimer !')->back();
     }
 }

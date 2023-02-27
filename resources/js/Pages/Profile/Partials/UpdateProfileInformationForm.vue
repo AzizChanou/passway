@@ -2,7 +2,7 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import TextInput from '@/Components/Mazinput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -32,10 +32,10 @@ const form = useForm({
             <div>
                 <InputLabel for="name" value="Name" />
 
-                <TextInput
+                <Mazinput
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="mt-1  "
                     v-model="form.name"
                     required
                     autofocus
@@ -48,10 +48,10 @@ const form = useForm({
             <div>
                 <InputLabel for="email" value="Email" />
 
-                <TextInput
+                <Mazinput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1  "
                     v-model="form.email"
                     required
                     autocomplete="username"

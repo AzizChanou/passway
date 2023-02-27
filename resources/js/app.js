@@ -4,13 +4,25 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css";
 import '../css/app.css';
+import './helpers/toast';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
+import { installToaster } from 'maz-ui';
+import MazBtn from 'maz-ui/components/MazBtn';
+import Mazinput from 'maz-ui/components/MazInput';
+import MazCheckBox from 'maz-ui/components/MazCheckBox';
+import MazDropzone from 'maz-ui/components/MazDropzone';
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Passway';
+
+const toasterOptions = {
+    position: 'top-right',
+    timeout: 3000,
+    persistent: false,
+};
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -19,6 +31,11 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(installToaster, toasterOptions)
+            .component('MazBtn', MazBtn)
+            .component('Mazinput', Mazinput)
+            .component('MazCheckBox', MazCheckBox)
+            .component('MazDropzone', MazDropzone)
             .mount(el);
     },
     progress: {

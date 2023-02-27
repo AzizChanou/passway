@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->boolean('is_admin')->default(0);
+            $table->enum('role', ['assistant', 'admin', 'root'])->default('assistant');
             $table->foreignId('organizer_id')->nullable()->constrained();
             $table->string('password');
             $table->rememberToken();
