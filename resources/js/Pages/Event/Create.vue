@@ -1,28 +1,34 @@
 <script setup>
-import AdminLayout from '@/Layouts/AdminLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+});
 </script>
 
 <template>
-    <Head title="Tableau de bord" />
-
-    <AdminLayout>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-            <Link :href="route('pass.create')"
-                class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300">
-            <i class="fi-sr-ticket text-slate-500 text-8xl"></i>
-            <span class="text-2xl font-semibold font-mono uppercase text-primary">Pass</span>
-            </Link>
-            <Link :href="route('pass.create')"
-                class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300">
-            <i class="fi-sr-chart-pie text-slate-500 text-8xl"></i>
-            <span class="text-2xl font-semibold font-mono uppercase text-primary">Pass</span>
-            </Link>
-            <Link :href="route('pass.create')"
-                class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300">
-            <i class="fi-sr-user text-slate-500 text-8xl"></i>
-            <span class="text-2xl font-semibold font-mono uppercase text-primary">Pass</span>
-            </Link>
+    <div>
+        <div>
+            <Mazinput :hint="form.errors.name" :error="!!form.errors.name" id="name" type="text" label="Nom" class="mt-1"
+                v-model="form.name" required autocomplete="name" />
         </div>
-    </AdminLayout>
+        <div class="mt-4">
+            <Mazinput :hint="form.errors.email" :error="!!form.errors.email" id="email" type="email" label="Email"
+                class="mt-1" v-model="form.email" required autocomplete="email" />
+        </div>
+        <div class="mt-4">
+            <Mazinput :hint="form.errors.phone" :error="!!form.errors.phone" id="phone" type="text" label="Phone"
+                class="mt-1" v-model="form.phone" required autocomplete="phone" />
+        </div>
+        <div class="mt-4">
+            <Mazinput :hint="form.errors.address" :error="!!form.errors.address" id="address" type="text" label="Adresse"
+                class="mt-1" v-model="form.address" required autocomplete="address" />
+        </div>
+        <MazBtn class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            Enregistrer
+        </MazBtn>
+    </div>
 </template>

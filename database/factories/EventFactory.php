@@ -22,6 +22,7 @@ class EventFactory extends Factory
             'time' => fake()->time(),
             'place' => fake()->streetAddress(),
             'description' => fake()->realText(),
+            'picture_path' => 'https://source.unsplash.com/random/100x100/?5'
         ];
     }
 }

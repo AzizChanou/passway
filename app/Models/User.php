@@ -21,7 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'is_admin',
+        'role',
         'password',
     ];
 
@@ -49,7 +49,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function organizer(): BelongsTo
+    public function organizer()
     {
         return $this->belongsTo(Organizer::class);
     }

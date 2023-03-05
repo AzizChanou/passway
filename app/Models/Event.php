@@ -40,33 +40,22 @@ class Event extends Model
     {
         return self::where('title', 'LIKE', '%' . $recherche . '%')
             ->orWhere('description', 'LIKE', '%' . $recherche . '%')
-            ->with('eventCategory')
+            ->with(['eventCategory', 'passes', 'comments', 'organizer'])
             ->withCount('comments')
-            ->with('passes')
-            ->with('comments')
-            ->with('organizer')
             ->get();
     }
 
     public static function getEventDetails($id)
     {
-        return self::with('eventCategory')
-            ->withCount('comments')
-            ->with('comments')
-            ->with('passes')
-            ->with('organizer')
-            ->with('eventCategory')
-            ->where('id', $id)
-            ->where('date', '>=', now())
-            ->first();
+        return self::findorfail($id)
+            ->with(['organizer', 'eventCategory', 'comments', 'passes', 'eventCategory'])
+            ->withCount('comments');
     }
 
     public static function getIncomingEvents($limit = null)
     {
         return self::where('date', '>=', now())
-            ->with('organizer')
-            ->with('eventCategory')
-            ->with('passes')
+            ->with(['organizer', 'eventCategory', 'passes'])
             ->withCount('comments')
             ->limit($limit)
             ->get();
@@ -76,6 +65,6 @@ class Event extends Model
     {
         $eventToUpdate =  self::find($event->id);
         $eventToUpdate->name = $event->name;
-        return redirect()->back()->with('success', 'Evnement mis a jour !');
+        return redirect()->back()->with('success', 'Evenement mis a jour !');
     }
 }

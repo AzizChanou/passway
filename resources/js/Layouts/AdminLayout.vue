@@ -2,6 +2,7 @@
 import MobileFootBar from '@/Components/MobileFootBar.vue';
 import MobileNavMenu from '@/Components/MobileNavMenu.vue';
 import NavBar from '@/Components/NavBar.vue';
+import Modal from '@/Components/Modal.vue';
 import { ref } from 'vue';
 
 
@@ -18,6 +19,7 @@ document.onreadystatechange = () => {
     <div class="min-h-screen mx-auto bg-dots-darker bg-slate-200">
         <MobileNavMenu />
         <NavBar />
+        <Modal />
         <div class="max-w-screen-xl mx-auto p-4">
             <slot />
         </div>

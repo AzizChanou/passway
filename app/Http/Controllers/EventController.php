@@ -20,7 +20,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('Event/Index', [
-            // 'events' => Organizer::getOrganizerEvents(),
+            'events' => Organizer::getOrganizerEvents(auth()->user()->organizer ? auth()->user()->organizer->id : null),
         ]);
     }
 
@@ -50,10 +50,10 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($id)
     {
         return Inertia::render('Event/Show', [
-            'event' => Event::getEventDetails($event->id),
+            'event' => Event::getEventDetails($id),
         ]);
     }
 
@@ -99,9 +99,9 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        Event::destroy($event->id);
+        Event::destroy($id);
         return redirect()->with('success', 'Evenement supprimer !')->back();
     }
 }

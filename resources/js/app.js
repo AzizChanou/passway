@@ -15,7 +15,7 @@ import MazBtn from 'maz-ui/components/MazBtn';
 import Mazinput from 'maz-ui/components/MazInput';
 import MazCheckBox from 'maz-ui/components/MazCheckBox';
 import MazDropzone from 'maz-ui/components/MazDropzone';
-
+import { createPinia } from 'pinia';
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Passway';
 
 const toasterOptions = {
@@ -23,6 +23,7 @@ const toasterOptions = {
     timeout: 3000,
     persistent: false,
 };
+const pinia = createPinia()
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -30,6 +31,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(pinia)
             .use(ZiggyVue, Ziggy)
             .use(installToaster, toasterOptions)
             .component('MazBtn', MazBtn)

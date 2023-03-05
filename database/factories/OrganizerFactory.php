@@ -21,6 +21,7 @@ class OrganizerFactory extends Factory
             'email' => fake()->companyEmail(),
             'phone' => fake()->phoneNumber(),
             'address' => fake()->streetAddress(),
+            'picture_path' => 'https://source.unsplash.com/random/100x100/?5',
         ];
     }
 }

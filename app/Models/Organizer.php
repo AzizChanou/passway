@@ -26,15 +26,23 @@ class Organizer extends Model
         return $this->hasMany(Event::class);
     }
 
-    public static function getOrganizerEvents()
+    public static function getOrganizerEvents($id)
     {
-        return self::with('events')
-            ->with('comments')
-            ->with('passes')
-            ->with('eventCategory')
-            ->with('eventCategory')
-            ->withCount('comments')
-            ->where('events.organizer_id', auth()->user()->organizer()->id)
-            ->get();
+        if (auth()->user()->role === 'root') {
+            return Event::with('organizer')
+                ->with('comments')
+                ->with('passes')
+                ->with('eventCategory')
+                ->withCount('comments', 'passes')
+                ->get();
+        } else {
+            return Event::with('organizer')
+                ->with('comments')
+                ->with('passes')
+                ->with('eventCategory')
+                ->withCount('comments', 'passes')
+                ->where('events.organizer_id', $id)
+                ->get();
+        }
     }
 }

@@ -1,21 +1,18 @@
-<template>
-    <MazBtn @click="isOpen = true">Open Dialog</MazBtn>
+<script setup>
+import MazDialog from 'maz-ui/components/MazDialog'
+import { useModalStore } from '@/store/modal'
 
-    <MazDialog v-model="isOpen" title="Dialog Title">
-        <p>
-            Your content
-        </p>
-        <template #footer>
-            <MazBtn @click="isOpen = false">
-                Confirm
+const modal = useModalStore()
+</script>
+
+<template>
+    <MazDialog v-model="modal.isOpen" :title="modal.title">
+        <div v-if="modal.message" class="">{{ modal.message }}</div>
+        <Component v-else :is="modal.component" />
+        <template v-if="modal.message" #footer>
+            <MazBtn @click="modal.isOpen = true, modal.confirmation = true">
+                Confirmer
             </MazBtn>
         </template>
     </MazDialog>
 </template>
-  
-<script setup>
-import { ref } from 'vue'
-import MazDialog from 'maz-ui/components/MazDialog'
-
-const isOpen = ref(false)
-</script>

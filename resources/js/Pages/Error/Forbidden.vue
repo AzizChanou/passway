@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
-import UserDashboard from "@/Layouts/UserDashboard.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 
 defineProps({
     status: Number,
@@ -9,7 +9,7 @@ defineProps({
 
 <template>
     <Head title="Acces non autorise" />
-    <UserDashboard>
+    <GuestLayout>
         <div v-if="status === 403" class="w-full h-full">
             <div class="h-full p-6 flex flex-col place-content-center">
                 <div class="flex justify-center items-center">
@@ -20,5 +20,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </UserDashboard>
+    </GuestLayout>
 </template>

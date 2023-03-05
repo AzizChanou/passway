@@ -16,7 +16,7 @@ console.log(props.event);
     <Head :title="event?.title" />
     <GuestLayout>
         <div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row mt-4">
-            <img src="https://source.unsplash.com/640x480/?1" alt="" class="h-80 bg-slate-100 aspect-video">
+            <img :src="event?.picture_path" alt="" class="h-80 bg-slate-100 aspect-video">
             <div class="flex flex-col justify-center flex-1 p-6 bg-slate-100">
                 <span class="text-sm uppercase">{{ event?.organizer?.name }}</span>
                 <h3 class="text-3xl font-bold">{{ event?.title }}</h3>
@@ -29,7 +29,7 @@ console.log(props.event);
                     <div class="flex space-x-2 text-sm">
                         <div title="Type de tickets" class="flex items-center p-1 space-x-1.5">
                             <i class="text-secondary fi-sr-ticket"></i>
-                            <span>{{ event?.passes.reduce((acc, passe) => acc + passe.available_quantity, 0) }}</span>
+                            <span>{{ event?.passes?.reduce((acc, passe) => acc + passe.available_quantity, 0) }}</span>
                         </div>
                         <div title="Nombre de commentaires" class="flex items-center p-1 space-x-1.5">
                             <i class="text-secondary fi-sr-comments"></i>

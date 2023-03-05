@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
-import UserDashboard from "@/Layouts/UserDashboard.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Icon from "@/Components/Icon.vue";
 
 const currentYear = new Date().getFullYear();
@@ -8,19 +8,16 @@ const currentYear = new Date().getFullYear();
 
 <template>
     <Head title="Conditions generales d'utilisations" />
-    <UserDashboard>
+    <GuestLayout>
         <div class="space-y-14 divide-y-2 px-6 py-8">
             <div class="space-y-8">
                 <h1 class="text-4xl font-bold text-center">
-                    Conditions Générales d’<span class="text-bouff-primaryone"
-                        >Utilisation</span
-                    >
+                    Conditions Générales d’<span class="text-bouff-primaryone">Utilisation</span>
                 </h1>
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 1 :<span class="text-bouff-primaryone">
-                            Objets</span
-                        >
+                            Objets</span>
                     </h1>
                     <p class="text-justify">
                         Les présentes CGU ou Conditions Générales d’Utilisation
@@ -34,8 +31,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 2 :<span class="text-bouff-primaryone">
-                            Mentions légales</span
-                        >
+                            Mentions légales</span>
                     </h1>
                     <p class="text-justify">
                         Lorem ipsum dolor, sit amet consectetur adipisicing
@@ -47,8 +43,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 3 :<span class="text-bouff-primaryone">
-                            Accès au site</span
-                        >
+                            Accès au site</span>
                     </h1>
                     <p class="text-justify">
                         Le site BOUFF permet d’accéder gratuitement aux services
@@ -70,8 +65,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 4 :<span class="text-bouff-primaryone">
-                            Collecte des données</span
-                        >
+                            Collecte des données</span>
                     </h1>
                     <p class="text-justify">
                         Pour la création du compte de l’Utilisateur, la collecte
@@ -90,8 +84,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 5 :<span class="text-bouff-primaryone">
-                            Propriété intellectuelle</span
-                        >
+                            Propriété intellectuelle</span>
                     </h1>
                     <p class="text-justify">
                         Les marques, logos ainsi que les contenus du site BOUFF
@@ -106,8 +99,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 6 :<span class="text-bouff-primaryone">
-                            Responsabilité</span
-                        >
+                            Responsabilité</span>
                     </h1>
                     <p class="text-justify">
                         Bien que les informations publiées sur le site soient
@@ -135,8 +127,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 7 :<span class="text-bouff-primaryone">
-                            Liens hypertexte</span
-                        >
+                            Liens hypertexte</span>
                     </h1>
                     <p class="text-justify">
                         Le site peut être constitué de liens hypertextes. En
@@ -149,8 +140,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 8 :<span class="text-bouff-primaryone">
-                            Cookies</span
-                        >
+                            Cookies</span>
                     </h1>
                     <p class="text-justify">
                         Lors des visites sur le site, l’installation automatique
@@ -173,8 +163,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 9 :<span class="text-bouff-primaryone">
-                            Publication par l’Utilisateur</span
-                        >
+                            Publication par l’Utilisateur</span>
                     </h1>
                     <p class="text-justify">
                         Le site BOUFF permet aux membres(Restaurant) de publier
@@ -210,8 +199,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 10 :<span class="text-bouff-primaryone">
-                            Durée du contrat</span
-                        >
+                            Durée du contrat</span>
                     </h1>
                     <p class="text-justify">
                         Le présent contrat est valable pour une durée
@@ -223,8 +211,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 11 :<span class="text-bouff-primaryone">
-                            Droit applicable et juridiction compétente</span
-                        >
+                            Droit applicable et juridiction compétente</span>
                     </h1>
                     <p class="text-justify">
                         Le présent contrat est soumis à la législation
@@ -268,5 +255,5 @@ const currentYear = new Date().getFullYear();
                 </span>
             </div>
         </div>
-    </UserDashboard>
+    </GuestLayout>
 </template>

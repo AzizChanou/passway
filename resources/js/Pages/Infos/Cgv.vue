@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from "@inertiajs/inertia-vue3";
-import UserDashboard from "@/Layouts/UserDashboard.vue";
+import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Icon from "@/Components/Icon.vue";
 
 const currentYear = new Date().getFullYear();
@@ -8,7 +8,7 @@ const currentYear = new Date().getFullYear();
 
 <template>
     <Head title="Conditions generales de ventes" />
-    <UserDashboard>
+    <GuestLayout>
         <div class="space-y-14 divide-y-2 px-6 py-8">
             <div class="space-y-8">
                 <h1 class="text-4xl font-bold text-center">
@@ -18,8 +18,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 1 :<span class="text-bouff-primaryone">
-                            Règlementation applicable :</span
-                        >
+                            Règlementation applicable :</span>
                     </h1>
                     <p class="text-justify">
                         Après signature du devis par les deux parties, le marché
@@ -33,8 +32,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 2 :<span class="text-bouff-primaryone">
-                            Durée de validité de l’offre</span
-                        >
+                            Durée de validité de l’offre</span>
                     </h1>
                     <p class="text-justify">
                         La présente offre est valable pour une durée maximale
@@ -44,8 +42,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 3 :<span class="text-bouff-primaryone">
-                            Actualisation des prix</span
-                        >
+                            Actualisation des prix</span>
                     </h1>
                     <p class="text-justify">
                         Les prix du présent devis seront actualisés à compter du
@@ -62,8 +59,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 4 :<span class="text-bouff-primaryone">
-                            Conditions suspensives du marché</span
-                        >
+                            Conditions suspensives du marché</span>
                     </h1>
                     <p class="text-justify">
                         4.a. Autorisations : Le marché est conclu, le cas
@@ -82,8 +78,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 5 :<span class="text-bouff-primaryone">
-                            Conditions d’exécution des travaux</span
-                        >
+                            Conditions d’exécution des travaux</span>
                     </h1>
                     <p class="text-justify">
                         L’entreprise se réserve le droit de refuser
@@ -98,8 +93,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 6 :<span class="text-bouff-primaryone">
-                            Prolongation éventuelle des délais d’exécution</span
-                        >
+                            Prolongation éventuelle des délais d’exécution</span>
                     </h1>
                     <p class="text-justify">
                         Sauf délai différent stipulé aux conditions
@@ -136,8 +130,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 7 :<span class="text-bouff-primaryone">
-                            Réception de travaux</span
-                        >
+                            Réception de travaux</span>
                     </h1>
                     <p class="text-justify">
                         La réception des travaux, par laquelle le client déclare
@@ -157,8 +150,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 8 :<span class="text-bouff-primaryone">
-                            Acompte</span
-                        >
+                            Acompte</span>
                     </h1>
                     <p class="text-justify">
                         La signature du devis devra être accompagnée du
@@ -172,8 +164,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 9 :<span class="text-bouff-primaryone">
-                            Situations intermédiaires</span
-                        >
+                            Situations intermédiaires</span>
                     </h1>
                     <p class="text-justify">
                         Lorsque la durée des travaux sera supérieure à un mois,
@@ -190,8 +181,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 10 :<span class="text-bouff-primaryone">
-                            Délai de paiement</span
-                        >
+                            Délai de paiement</span>
                     </h1>
                     <p class="text-justify">
                         Les factures de l’entreprise sont payables comptant,
@@ -213,8 +203,7 @@ const currentYear = new Date().getFullYear();
                 <div>
                     <h1 class="text-xl font-bold">
                         Article 11 :<span class="text-bouff-primaryone">
-                            Utilisation du devis</span
-                        >
+                            Utilisation du devis</span>
                     </h1>
                     <p class="text-justify">
                         Les devis et les documents annexés sont et restent, en
@@ -260,5 +249,5 @@ const currentYear = new Date().getFullYear();
                 </span>
             </div>
         </div>
-    </UserDashboard>
+    </GuestLayout>
 </template>

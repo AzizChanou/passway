@@ -14,10 +14,9 @@ defineProps({
     <div class="flex flex-col min-w-full max-w-sm p-4 overflow-hidden bg-slate-100 rounded-lg shadow">
         <div class="flex justify-between">
             <div class="flex space-x-4">
-                <img alt="" src="https://source.unsplash.com/100x100/?portrait"
-                    class="object-cover w-10 h-10 rounded-full shadow">
+                <img :src="event?.organizer?.picture_path" class="object-cover w-10 h-10 rounded-full shadow">
                 <div class="flex flex-col space-y-1">
-                    <a rel="noopener noreferrer" href="#" class="text-sm font-semibold">{{ event?.organizer?.name }}</a>
+                    <span class="text-sm font-semibold">{{ event?.organizer?.name }}</span>
                     <span class="text-xs text-secondary">{{ timeElapsed(event?.date) }}</span>
                 </div>
             </div>
@@ -26,7 +25,7 @@ defineProps({
             </div>
         </div>
         <div class="mt-4">
-            <img src="https://source.unsplash.com/random/100x100/?5" alt="" class="object-cover w-full mb-4 h-40 sm:h-60">
+            <img :src="event?.picture_path" class="object-cover w-full mb-4 h-40 sm:h-60">
             <h2 class="mb-1 text-xl font-medium">{{ event?.title }}</h2>
             <p class="text-sm">{{ truncate(event?.description, 100) }}
                 <Link class="text-secondary hover:text-primary" :href="route('event.show', event?.id)">

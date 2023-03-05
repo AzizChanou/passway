@@ -3,9 +3,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
+    email: 'kyogre@yopmail.fr',
+    password: 'password',
+    remember: true,
 });
 
 const submit = () => {
@@ -24,12 +24,12 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <Mazinput :hint="form?.errors?.email" :error="!!form.errors.email" id="email" type="email" label="Email"
-                    class="mt-1  " v-model="form.email" required autofocus autocomplete="email" />
+                    class="mt-1" v-model="form.email" required autofocus autocomplete="email" />
             </div>
 
             <div class="mt-4">
                 <Mazinput :hint="form?.errors?.password" :error="!!form.errors.password" id="password" type="password"
-                    label="Mot de passe" class="mt-1  " v-model="form.password" required autocomplete="current-password" />
+                    label="Mot de passe" class="mt-1" v-model="form.password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">

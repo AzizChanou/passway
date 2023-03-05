@@ -34,6 +34,9 @@ import { Link } from '@inertiajs/vue3';
                         <li>
                             <Link class="hover:text-tertiary" :href="route('faqs')">FAQS</Link>
                         </li>
+                        <li>
+                            <Link class="hover:text-tertiary" :href="route('dashboard')">Dashboard</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

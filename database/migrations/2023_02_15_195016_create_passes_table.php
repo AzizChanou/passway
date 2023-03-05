@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->decimal('price', 8, 2);
             $table->integer('available_quantity');
-            $table->foreignId('event_id')->constrained();
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

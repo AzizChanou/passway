@@ -1,21 +1,12 @@
 <script setup>
 import Logo from '@/Components/Logo.vue';
-import { Link, router } from '@inertiajs/vue3';
-import useThrottle from '@/helpers/useThrottle';
-import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const showMenu = () => {
     navMenu.classList.toggle("active");
     menu.classList.toggle("w-full");
     menu.classList.toggle("w-0");
 }
-
-const recherche = ref(null);
-
-const searchEvents = useThrottle(() => {
-    router.get(route('search'), { q: recherche.value }, { preserveState: true });
-}, 500)
-
 </script>
 
 <template>
@@ -36,7 +27,7 @@ const searchEvents = useThrottle(() => {
                 </li>
                 <li v-if="$page.props.auth.user" :class="{
                     'text-tertiary border-tertiary':
-                        $page.url === '/dashboard',
+                        $page.url === '/dashboard' || $page.url === '/event',
                 }">
                     <Link :href="route('dashboard')"
                         class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
