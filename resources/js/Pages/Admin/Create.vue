@@ -72,7 +72,7 @@ const submitEvent = () => {
                     </div>
                     <div class="col-span-full flex flex-row-reverse">
                         <button
-                            class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">Acheter</button>
+                            class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">Selection</button>
                     </div>
                 </form>
             </fieldset>
