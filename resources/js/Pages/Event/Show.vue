@@ -8,7 +8,7 @@ const props = defineProps({
     event: {},
 })
 
-const ticketsForm = useForm({
+const passForm = useForm({
     name: '',
     number: '',
     email: '',
@@ -17,7 +17,7 @@ const ticketsForm = useForm({
     pass_id: null
 })
 const submitOrder = () => {
-    console.log(ticketsForm);
+    console.log(passForm);
 }
 
 const commentForm = useForm({
@@ -48,7 +48,7 @@ const submitComment = () => {
                 </p>
                 <div class="flex flex-wrap justify-between items-center">
                     <div class="flex space-x-2 text-sm">
-                        <div title="Type de tickets" class="flex items-center p-1 space-x-1.5">
+                        <div title="Type de pass" class="flex items-center p-1 space-x-1.5">
                             <i class="text-secondary fi-sr-ticket"></i>
                             <span>{{ event?.passes?.reduce((acc, passe) => acc + passe.available_quantity, 0) }}</span>
                         </div>
@@ -73,61 +73,61 @@ const submitComment = () => {
                 </div>
                 <form @submit.prevent="submitOrder" class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full sm:col-span-3">
-                        <label for="website" class="text-sm">Type de tickets</label>
-                        <select v-model="ticketsForm.pass_id" id="website"
+                        <label for="website" class="text-sm">Type de pass</label>
+                        <select v-model="passForm.pass_id" id="website"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
-                            <option selected>--Selectionner type de tickets--</option>
+                            <option disabled selected value>--Selectionner type de pass--</option>
                             <option v-for="passe in event?.passes" :key="passe?.id" :value="passe?.id" required>
                                 {{ `${passe?.type} - ${passe?.price} CFA` }}
                             </option>
                         </select>
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.pass_id">
-                            {{ ticketsForm.errors.pass_id }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.pass_id">
+                            {{ passForm.errors.pass_id }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="quantity" class="text-sm">Quantite</label>
-                        <input v-model="ticketsForm.quantity" id="quantity" type="number" placeholder="Quantite" min="1"
+                        <input v-model="passForm.quantity" id="quantity" type="number" placeholder="Quantite" min="1"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.quantity">
-                            {{ ticketsForm.errors.quantity }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.quantity">
+                            {{ passForm.errors.quantity }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="name" class="text-sm">Nom</label>
-                        <input v-model="ticketsForm.name" id="name" type="text" placeholder="Nom"
+                        <input v-model="passForm.name" id="name" type="text" placeholder="Nom"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.name">
-                            {{ ticketsForm.errors.name }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.name">
+                            {{ passForm.errors.name }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="address" class="text-sm">Adresse</label>
-                        <input v-model="ticketsForm.address" id="address" type="text" placeholder="Adresse"
+                        <input v-model="passForm.address" id="address" type="text" placeholder="Adresse"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.address">
-                            {{ ticketsForm.errors.address }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.address">
+                            {{ passForm.errors.address }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="email" class="text-sm">Email</label>
-                        <input v-model="ticketsForm.email" id="email" type="email" placeholder="Email"
+                        <input v-model="passForm.email" id="email" type="email" placeholder="Email"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.email">
-                            {{ ticketsForm.errors.email }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.email">
+                            {{ passForm.errors.email }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="number" class="text-sm">Numero</label>
-                        <input v-model="ticketsForm.number" id="number" type="text" placeholder="Numero"
+                        <input v-model="passForm.number" id="number" type="text" placeholder="Numero"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.number">
-                            {{ ticketsForm.errors.number }}
+                        <div class="text-sm text-red-600" v-if="passForm.errors.number">
+                            {{ passForm.errors.number }}
                         </div>
                     </div>
                     <div class="col-span-full flex flex-row-reverse">
-                        <button :disabled="ticketsForm.quantity <= 0 && ticketsForm.quantity === null"
-                            :class="{ 'opacity-50': ticketsForm.quantity <= 0 && ticketsForm.quantity === null }"
+                        <button :disabled="passForm.quantity <= 0 && passForm.quantity === null"
+                            :class="{ 'opacity-50': passForm.quantity <= 0 && passForm.quantity === null }"
                             class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">Acheter</button>
                     </div>
                 </form>

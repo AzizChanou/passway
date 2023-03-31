@@ -48,7 +48,7 @@ const submitPass = () => {
                         <label for="event_category_id" class="text-sm">Type d'evenement</label>
                         <select v-model="eventForm.event_category_id" id="event_category_id"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
-                            <option selected disabled>--Selectionner une categorie d'evenement--</option>
+                            <option disabled selected value>--Selectionner une categorie d'evenement--</option>
                             <option v-for="eventCategory in eventCategories" :key="eventCategory?.id"
                                 :value="eventCategory?.id" required>
                                 {{ eventCategory?.name }}

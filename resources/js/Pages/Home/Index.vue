@@ -17,8 +17,6 @@ const props = defineProps({
     categories: {},
     events: {}
 });
-
-console.log(props.events);
 </script>
 
 <template>

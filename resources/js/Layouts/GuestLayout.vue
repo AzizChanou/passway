@@ -4,10 +4,12 @@ import FootBar from '@/Components/FootBar.vue';
 import NavBar from '@/Components/NavBar.vue';
 import Cart from '@/Components/Cart.vue';
 import Modal from '@/Components/Modal.vue';
+import Toast from '@/Components/Toast.vue';
 </script>
 
 <template>
     <div class="min-h-screen mx-auto bg-dots-darker bg-slate-200">
+        <Toast />
         <MobileNavMenu />
         <NavBar />
         <Modal />

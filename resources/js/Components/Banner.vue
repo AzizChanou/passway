@@ -3,10 +3,14 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Pagination } from "swiper";
 import { Link } from "@inertiajs/vue3";
 import truncate from "@/helpers/truncate";
+import { ref } from "vue";
 
-defineProps({
+const props = defineProps({
     events: {}
 })
+
+const upcomingEvents = ref(props.events.sort((prec, next) => next.created_at - prec.created_at))
+upcomingEvents.value = upcomingEvents.value.slice(0, 3)
 </script>
 
 <template>
@@ -14,7 +18,7 @@ defineProps({
         <swiper :modules="[Autoplay, Pagination]" :free-mode="true" :autoplay="true" :pagination="{
             clickable: true,
         }" :loop="true" :speed="1000">
-            <swiper-slide v-for="event in events" :key="event.id">
+            <swiper-slide v-for="event in upcomingEvents" :key="event.id">
                 <div class="bg-primary w-full rounded text-gray-50">
                     <div class="container grid grid-cols-12 mx-auto w-full">
                         <div class="bg-no-repeat bg-cover bg-gray-300 col-span-full lg:col-span-4"
@@ -22,8 +26,8 @@ defineProps({
                         </div>
                         <div class="flex flex-col p-6 col-span-full row-span-full lg:col-span-8 lg:p-10">
                             <div class="flex justify-start">
-                                <span
-                                    class="px-2 py-1 text-xs rounded-full bg-violet-400 text-gray-900">{{ event?.event_category?.name }}</span>
+                                <span class="px-2 py-1 text-xs rounded-full bg-violet-400 text-gray-900">{{
+                                    event?.event_category?.name }}</span>
                             </div>
                             <h1 class="text-3xl font-semibold">{{ event?.title }}</h1>
                             <p class="flex-1 pt-2">{{ truncate(event?.description, 200) }}</p>

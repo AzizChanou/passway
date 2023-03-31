@@ -17,6 +17,16 @@ class Organizer extends Model
     protected $guarded = [];
 
     /**
+     * Get all of the users for the Organizer
+     *
+     * @return 
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
      * Get all of the events for the Organizer
      *
      * @return 
