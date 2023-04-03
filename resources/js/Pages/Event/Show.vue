@@ -1,36 +1,81 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import generateRandomHexColor from '@/helpers/generateRandomHexColor';
 import shareLink from '@/helpers/shareLink';
+import { onMounted, onUnmounted } from 'vue';
+import {
+    openKkiapayWidget,
+    addKkiapayListener,
+    removeKkiapayListener,
+} from "kkiapay";
+import { useModalStore } from '@/store/modal';
 
+const modal = useModalStore();
 const props = defineProps({
     event: {},
 })
 
-const passForm = useForm({
-    name: '',
-    number: '',
-    email: '',
-    address: '',
+const ticketsForm = useForm({
+    name: 'Kyogre',
+    phone: '69457894',
+    email: 'azobo@yopmail.fr',
+    address: 'St. Rita',
     quantity: 1,
     pass_id: null
 })
-const submitOrder = () => {
-    console.log(passForm);
-}
 
 const commentForm = useForm({
     email: '',
     text: '',
     event_id: props.event?.id,
 });
+
+const pay = () => {
+    if (navigator.onLine) {
+        openKkiapayWidget({
+            callback: "",
+            data: "",
+            amount: 0,
+            api_key: "40c5cb501c9611ed995cd39f617b9df2",
+            paymentmethod: "momo",
+            theme: "#0f213a",
+            sandbox: true,
+            address: ticketsForm.address,
+            email: ticketsForm.email,
+            phone: ticketsForm.phone,
+        });
+    } else {
+        modal.toggleModal(true, 'Connexion', null, "Veuillez vous connecter à internet et ressayer !")
+    }
+};
+
+const successHandler = (response) => {
+    console.log(response);
+    /*  form.transactionid = response.transactionId;
+     form.account = response.account;
+     if (response.transactionId) {
+         submit();
+     } */
+};
+
+const submitOrder = () => {
+    console.log(ticketsForm);
+}
+
 const submitComment = () => {
     commentForm.post(route('comment.store', {
         onFinish: () => commentForm.reset
-    }),
-    );
+    }));
 };
+
+onMounted(() => {
+    addKkiapayListener("success", successHandler);
+});
+
+onUnmounted(() => {
+    removeKkiapayListener("success", successHandler);
+});
 </script>
 
 <template>
@@ -71,64 +116,66 @@ const submitComment = () => {
                     <p class="font-medium">Profile</p>
                     <p class="text-xs">Adipisci fuga autem eum!</p>
                 </div>
-                <form @submit.prevent="submitOrder" class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+                <form @submit.prevent class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full sm:col-span-3">
                         <label for="website" class="text-sm">Type de pass</label>
-                        <select v-model="passForm.pass_id" id="website"
+                        <select v-model="ticketsForm.pass_id" id="website"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
                             <option disabled selected value>--Selectionner type de pass--</option>
                             <option v-for="passe in event?.passes" :key="passe?.id" :value="passe?.id" required>
                                 {{ `${passe?.type} - ${passe?.price} CFA` }}
                             </option>
                         </select>
-                        <div class="text-sm text-red-600" v-if="passForm.errors.pass_id">
-                            {{ passForm.errors.pass_id }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.pass_id">
+                            {{ ticketsForm.errors.pass_id }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="quantity" class="text-sm">Quantite</label>
-                        <input v-model="passForm.quantity" id="quantity" type="number" placeholder="Quantite" min="1"
+                        <input v-model="ticketsForm.quantity" id="quantity" type="number" placeholder="Quantite" min="1"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="passForm.errors.quantity">
-                            {{ passForm.errors.quantity }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.quantity">
+                            {{ ticketsForm.errors.quantity }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="name" class="text-sm">Nom</label>
-                        <input v-model="passForm.name" id="name" type="text" placeholder="Nom"
+                        <input v-model="ticketsForm.name" id="name" type="text" placeholder="Nom"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="passForm.errors.name">
-                            {{ passForm.errors.name }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.name">
+                            {{ ticketsForm.errors.name }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="address" class="text-sm">Adresse</label>
-                        <input v-model="passForm.address" id="address" type="text" placeholder="Adresse"
+                        <input v-model="ticketsForm.address" id="address" type="text" placeholder="Adresse"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="passForm.errors.address">
-                            {{ passForm.errors.address }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.address">
+                            {{ ticketsForm.errors.address }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
                         <label for="email" class="text-sm">Email</label>
-                        <input v-model="passForm.email" id="email" type="email" placeholder="Email"
+                        <input v-model="ticketsForm.email" id="email" type="email" placeholder="Email"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="passForm.errors.email">
-                            {{ passForm.errors.email }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.email">
+                            {{ ticketsForm.errors.email }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
-                        <label for="number" class="text-sm">Numero</label>
-                        <input v-model="passForm.number" id="number" type="text" placeholder="Numero"
+                        <label for="phone" class="text-sm">Numero</label>
+                        <input v-model="ticketsForm.phone" id="phone" type="text" placeholder="Numero"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
-                        <div class="text-sm text-red-600" v-if="passForm.errors.number">
-                            {{ passForm.errors.number }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.phone">
+                            {{ ticketsForm.errors.phone }}
                         </div>
                     </div>
                     <div class="col-span-full flex flex-row-reverse">
-                        <button :disabled="passForm.quantity <= 0 && passForm.quantity === null"
-                            :class="{ 'opacity-50': passForm.quantity <= 0 && passForm.quantity === null }"
-                            class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">Acheter</button>
+                        <MazBtn @click="pay" :disabled="ticketsForm.quantity <= 0 && ticketsForm.quantity === null"
+                            :class="{ 'opacity-50': ticketsForm.quantity <= 0 && ticketsForm.quantity === null }"
+                            class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">
+                            Acheter
+                        </MazBtn>
                     </div>
                 </form>
             </fieldset>

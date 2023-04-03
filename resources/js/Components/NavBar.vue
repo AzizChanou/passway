@@ -47,9 +47,9 @@ const showMenu = () => {
                     'text-tertiary border-tertiary':
                         $page.url === '/about',
                 }">
-                    <Link :href="route('about')"
+                    <Link :href="route('faqs')"
                         class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
-                    A propos
+                    FAQs
                     </Link>
                 </li>
             </ul>

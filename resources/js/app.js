@@ -16,6 +16,8 @@ import Mazinput from 'maz-ui/components/MazInput';
 import MazCheckBox from 'maz-ui/components/MazCheckBox';
 import MazDropzone from 'maz-ui/components/MazDropzone';
 import { createPinia } from 'pinia';
+import PrimeVue from 'primevue/config';
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Passway';
 
 const toasterOptions = {
@@ -33,6 +35,7 @@ createInertiaApp({
             .use(plugin)
             .use(pinia)
             .use(ZiggyVue, Ziggy)
+            .use(PrimeVue, { ripple: true })
             .use(installToaster, toasterOptions)
             .component('MazBtn', MazBtn)
             .component('Mazinput', Mazinput)

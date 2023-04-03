@@ -18,14 +18,14 @@
     },
     "dependencies": {
         "dropzone": "^5.9.3",
-        "kkiapay": "^2.0.15",
+        "kkiapay": "^2.0.18",
         "libphonenumber-js": "^1.10.21",
         "maz-ui": "^3.6.12",
         "pinia": "^2.0.30",
         "primeicons": "^6.0.1",
-        "primevue": "^3.23.0",
+        "primevue": "^3.26.1",
         "swiper": "^9.0.5",
         "vue-qrcode": "^2.2.0",
-        "vue-qrcode-reader": "^3.1.1"
+        "vue3-qrcode-reader": "0.0.1"
     }
 }

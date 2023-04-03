@@ -30,15 +30,16 @@ upcomingEvents.value = upcomingEvents.value.slice(0, 3)
                                     event?.event_category?.name }}</span>
                             </div>
                             <h1 class="text-3xl font-semibold">{{ event?.title }}</h1>
-                            <p class="flex-1 pt-2">{{ truncate(event?.description, 200) }}</p>
-                            <a rel="noopener noreferrer" href="#"
+                            <p class="flex-1 pt-2 truncate">{{ truncate(event?.description, 200) }}</p>
+                            <Link :href="route('event.show', event?.id)" rel="noopener noreferrer" href="#"
                                 class="inline-flex items-center pt-2 pb-6 space-x-2 text-sm text-violet-400">
-                                <Link :href="route('event.show', event?.id)">Lire plus</Link>
-                                <i class="fi-sr-arrow-right"></i>
-                            </a>
+                            <span>Lire plus</span>
+                            <i class="fi-sr-arrow-right"></i>
+                            </Link>
                             <div class="flex items-center justify-between pt-2">
                                 <div class="flex space-x-2">
-                                    <i class="fi-sr-user"></i>
+                                    <img :src="event.organizer.picture_path" :alt="event.organizer.name"
+                                        class="w-8 h-8 rounded-full">
                                     <span class="self-center text-sm">{{ event?.organizer?.name }}</span>
                                 </div>
                             </div>

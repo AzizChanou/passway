@@ -62,11 +62,4 @@ class Event extends Model
             ->orderBy('start_date')
             ->get();
     }
-
-    public static function updateEvent($event)
-    {
-        $eventToUpdate =  self::find($event->id);
-        $eventToUpdate->name = $event->name;
-        return redirect()->back()->with('success', 'Evenement mis a jour !');
-    }
 }

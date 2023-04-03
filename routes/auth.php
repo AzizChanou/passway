@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
@@ -65,6 +66,12 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('order', OrderController::class);
+
+    Route::get('/qrcode', [UserController::class, 'scan'])
+        ->name('qrcode.scan');
+
+    Route::resource('user', UserController::class);
+
 
     Route::resource('event', EventController::class)->except(['show']);
 

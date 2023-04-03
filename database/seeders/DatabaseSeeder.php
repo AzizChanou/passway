@@ -22,12 +22,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'name' => 'Kyogre',
+        Organizer::factory()->create([
+            'name' => 'Passway',
             'email' => 'kyogre@yopmail.fr',
-            'role' => 'root',
-        ]);
-
+            'phone' => '69457894',
+            'address' => 'St. Rita',
+        ])->each(function ($organizer) {
+            User::factory()->create([
+                'name' => 'Kyogre',
+                'email' => 'kyogre@yopmail.fr',
+                'role' => 'root',
+                'organizer_id' => $organizer->id
+            ]);
+        });
 
         EventCategory::factory()->create([
             'name' => 'Conférence',

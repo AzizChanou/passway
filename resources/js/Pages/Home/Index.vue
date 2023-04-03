@@ -9,6 +9,7 @@ import useThrottle from '@/helpers/useThrottle';
 import { ref } from 'vue';
 
 const recherche = ref(null);
+
 const searchEvents = useThrottle(() => {
     recherche.value == '' ? router.get(route('home')) : router.get(route('search'), { q: recherche.value }, { preserveState: true });
 }, 700)

@@ -12,25 +12,25 @@ import { Link } from '@inertiajs/vue3';
                 <div class="pb-6 col-span-full md:pb-0 md:col-span-6">
                     <Link :href="route('home')">
                     <Logo color="light" class="h-16 p-2" />
-                    </Link>
-                </div>
+                </Link>
+            </div>
                 <div class="col-span-6 text-center md:text-left md:col-span-3">
                     <p class="pb-1 text-lg font-medium">Informations</p>
                     <ul>
-                        <li>
-                            <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
-                        </li>
+                        <!-- <li>
+                                <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
+                            </li> -->
                         <li>
                             <Link class="hover:text-tertiary" :href="route('faqs')">FAQS</Link>
                         </li>
-                    </ul>
-                </div>
+                </ul>
+            </div>
                 <div class="col-span-6 text-center md:text-left md:col-span-3">
                     <p class="pb-1 text-lg font-medium">Informations</p>
                     <ul>
-                        <li>
-                            <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
-                        </li>
+                        <!--  <li>
+                                <Link class="hover:text-tertiary" :href="route('about')">A propos</Link>
+                            </li> -->
                         <li>
                             <Link class="hover:text-tertiary" :href="route('faqs')">FAQS</Link>
                         </li>

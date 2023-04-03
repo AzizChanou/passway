@@ -48,12 +48,12 @@ class EventController extends Controller
     {
         $picture_name = auth()->user()->name . '_' . $request->title . '.' . $request->file('picture')->extension();
         $picture_path = env('APP_URL') . "/storage" . '/' . $request->file('picture')->storeAs('event_picture', $picture_name, 'public');
-        Event::create([
+        $event = Event::create([
             'picture_path' => $picture_path,
             'organizer_id' => auth()->user()->organizer->id,
             ...$request->except('picture')
         ]);
-        return redirect()->route('event.edit')->with('success', 'Evenement creer !');
+        return redirect()->route('event.edit', $event->id)->with('success', 'Evenement creer !');
     }
 
     /**
@@ -94,8 +94,18 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        Event::updateEvent($event);
-        return redirect()->with('success', 'Evenement mis a jour !')->back();
+        $picture_path = null;
+        if (false) {
+            $picture_name = auth()->user()->name . '_' . $request->title . '.' . $request->file('picture')->extension();
+            $picture_path = env('APP_URL') . "/storage" . '/' . $request->file('picture')->storeAs('event_picture', $picture_name, 'public');
+            dd('has file>>', $picture_path);
+        }
+        $event->update([
+            'picture_path' => $picture_path ? $picture_path : $event->picture_path,
+            'organizer_id' => auth()->user()->organizer->id,
+            ...$request->except('picture')
+        ]);
+        return redirect()->route('event.index')->with('success', 'Evenement mis a jour !');
     }
 
     /**
@@ -107,7 +117,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
-        return redirect()->with('success', 'Evenement supprimer !')->back();
+        return redirect()->back()->with('success', 'Evenement supprimer !');
     }
 
     /**

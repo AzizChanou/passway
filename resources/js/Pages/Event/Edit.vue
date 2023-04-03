@@ -1,6 +1,6 @@
 <script setup>
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     eventCategories: {},
@@ -8,21 +8,21 @@ const props = defineProps({
     passes: {}
 })
 
-console.log(props);
-
 const eventForm = useForm({
-    title: props.event?.title,
-    start_date: props.event?.start_date,
-    end_date: props.event?.end_date,
-    time: props.event?.time,
-    place: props.event?.place,
-    description: props.event?.description,
-    event_category_id: props.event?.event_category_id,
+    title: props.event.title,
+    start_date: props.event.start_date,
+    end_date: props.event.end_date,
+    time: props.event.time,
+    place: props.event.place,
+    description: props.event.description,
+    event_category_id: props.event.event_category_id,
     picture: null
 })
+
 const submitEvent = () => {
-    eventForm.put(route('event.store'))
-    console.log(eventForm);
+    eventForm.put(route('event.update', props.event), {
+        _method: 'put'
+    })
 }
 
 const passForm = useForm({
@@ -30,18 +30,18 @@ const passForm = useForm({
     price: '',
     available_quantity: '',
     event_id: props.event?.id,
-});
+})
+
 const submitPass = () => {
     passForm.post(route('pass.store'))
-    console.log(passForm);
 };
 </script>
 
 <template>
-    <Head type="Creer un evenement" />
+    <Head :title="`Modifier ${event.title}`" />
     <GuestLayout>
         <div class="w-full mx-auto rounded bg-slate-100 p-4 mt-4">
-            <h2 class="text-xl font-medium">Modifier un evenement</h2>
+            <h2 class="text-xl font-medium">{{ `Modifier ${event.title}` }}</h2>
             <fieldset class="grid grid-cols-4 gap-6 p-3 rounded-md">
                 <form @submit.prevent class="grid grid-cols-6 gap-4 col-span-full">
                     <div class="col-span-full sm:col-span-3">
@@ -54,8 +54,8 @@ const submitPass = () => {
                                 {{ eventCategory?.name }}
                             </option>
                         </select>
-                        <div class="text-sm text-red-600" v-if="eventForm.errors.pass_id">
-                            {{ eventForm.errors.pass_id }}
+                        <div class="text-sm text-red-600" v-if="eventForm.errors.event_category_id">
+                            {{ eventForm.errors.event_category_id }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
@@ -109,7 +109,7 @@ const submitPass = () => {
                     <div class="col-span-full">
                         <label for="picture" class="text-sm">Photo</label>
                         <input @input="eventForm.picture = $event.target.files[0]" id="picture" type="file"
-                            placeholder="Photo"
+                            placeholder="Photo" accept="image/*"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
                         <progress v-if="eventForm.progress" :value="eventForm.progress.percentage" max="100">
                             {{ eventForm.progress.percentage }}%
@@ -121,7 +121,7 @@ const submitPass = () => {
                     <div class="col-span-full flex flex-row-reverse">
                         <MazBtn @click="submitEvent"
                             class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">
-                            Modifier un evenement
+                            Modifier
                         </MazBtn>
                     </div>
                 </form>

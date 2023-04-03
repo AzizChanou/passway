@@ -37,8 +37,8 @@ const currentYear = new Date().getFullYear();
                     'font-bold':
                         $page.url === '/about',
                 }">
-                    <Link :href="route('about')">
-                    A propos
+                    <Link :href="route('faqs')">
+                    FAQs
                     </Link>
                 </li>
                 <li class="p-2">

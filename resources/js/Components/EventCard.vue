@@ -25,7 +25,7 @@ defineProps({
             </div>
         </div>
         <div class="mt-4">
-            <img :src="event?.picture_path" class="object-cover w-full mb-4 h-40 sm:h-60">
+            <img :src="event?.picture_path" class="object-cover w-full mb-4 h-40 sm:h-60 rounded-sm">
             <h2 class="mb-1 text-xl font-medium">{{ event?.title }}</h2>
             <p class="text-sm">{{ truncate(event?.description, 100) }}
                 <Link class="text-secondary hover:text-primary" :href="route('event.show', event?.id)">

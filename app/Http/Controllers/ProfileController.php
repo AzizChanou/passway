@@ -20,9 +20,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        dd(auth()->user());
         return Inertia::render('Admin/Index', [
-            'users' => auth()->user->organizer ? auth()->user->organizer->users : User::all()
+            'users' => auth()->user()->role !== 'root' ? auth()->user()->organizer->users->load('organizer') : User::all()->load('organizer')
         ]);
     }
 

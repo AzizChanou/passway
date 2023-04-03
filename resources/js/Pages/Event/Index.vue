@@ -58,7 +58,7 @@ watch(modal.confirm, (confirm) => {
                             <p>{{ event?.place }}</p>
                         </td>
                         <td class="p-3">
-                            <p>{{ event?.date }}</p>
+                            <p>{{ event?.start_date }}</p>
                             <p class="text-gray-400">{{ event?.time }}</p>
                         </td>
                         <td class="p-3">

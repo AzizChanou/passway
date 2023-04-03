@@ -23,6 +23,11 @@ import { Head, Link } from '@inertiajs/vue3';
             <i class="fi-sr-user text-slate-500 text-8xl"></i>
             <span class="text-xl font-semibold font-mono uppercase text-primary">Administrateur</span>
             </Link>
+            <Link :href="route('qrcode.scan')"
+                class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300">
+            <i class="fi-sr-user text-slate-500 text-8xl"></i>
+            <span class="text-xl font-semibold font-mono uppercase text-primary">QRCode</span>
+            </Link>
         </div>
     </AdminLayout>
 </template>

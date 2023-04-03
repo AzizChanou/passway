@@ -16,7 +16,7 @@ import Toast from '@/Components/Toast.vue';
         <div class="max-w-screen-xl mx-auto p-4">
             <slot />
         </div>
-        <Cart />
+        <!-- <Cart /> -->
         <FootBar />
     </div>
 </template>

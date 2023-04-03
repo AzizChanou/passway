@@ -42,8 +42,8 @@ const submitEvent = () => {
                                 {{ eventCategory?.name }}
                             </option>
                         </select>
-                        <div class="text-sm text-red-600" v-if="eventForm.errors.pass_id">
-                            {{ eventForm.errors.pass_id }}
+                        <div class="text-sm text-red-600" v-if="eventForm.errors.event_category_id">
+                            {{ eventForm.errors.event_category_id }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
@@ -97,7 +97,7 @@ const submitEvent = () => {
                     <div class="col-span-full">
                         <label for="picture" class="text-sm">Photo</label>
                         <input @input="eventForm.picture = $event.target.files[0]" id="picture" type="file"
-                            placeholder="Photo"
+                            placeholder="Photo" accept="image/*"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400" required />
                         <progress v-if="eventForm.progress" :value="eventForm.progress.percentage" max="100">
                             {{ eventForm.progress.percentage }}%
