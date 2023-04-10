@@ -5,6 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Jobs\SendOrderMailJob;
+use App\Models\Client;
+use App\Models\OrderDetails;
+use App\Models\Ticket;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+use Illuminate\Support\Facades\DB;
+use Nette\Utils\Random;
 
 class OrderController extends Controller
 {
@@ -36,7 +46,44 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $tickets = [];
+        $client = null;
+
+        DB::transaction(function () use ($request, &$client, &$tickets) {
+
+            $client = Client::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'number' => $request->number,
+            ]);
+
+            $order = Order::create([
+                'total_amount' => $request->total_amount,
+                'client_id' => $client->id,
+            ]);
+
+            OrderDetails::create([
+                'quantity' => $request->quantity,
+                'unit_price' => $request->pass['price'],
+                'pass_id' => $request->pass['id'],
+                'order_id' => $order->id,
+            ]);
+
+            for ($i = 0; $i < $request->quantity; $i++) {
+                $ticket = Ticket::create([
+                    'code' => 'pass' . Random::generate(28),
+                    'event_id' => $request->event_id,
+                    'order_id' => $order->id,
+                ]);
+
+                array_push($tickets, $ticket);
+            }
+        });
+
+        SendOrderMailJob::dispatch($client, $tickets);
+
+        // return response()->json($tickets, 200);
+        return redirect()->back()->with('success', 'Tickets acheter avec succes !');
     }
 
     /**

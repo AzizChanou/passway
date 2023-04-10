@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Event;
@@ -32,6 +33,8 @@ Route::get('/search', [EventController::class, 'rechercheEvenements'])
     ->name('search');
 
 Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
+
+Route::post('order', [OrderController::class, 'store'])->name('order.store');
 
 Route::inertia('/about', 'Infos/About')
     ->name('about');

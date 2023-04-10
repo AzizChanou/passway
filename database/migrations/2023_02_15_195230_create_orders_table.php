@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('phone');
-            $table->decimal('total_price');
+            $table->decimal('total_amount');
             $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });

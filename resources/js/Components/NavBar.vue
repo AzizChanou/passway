@@ -25,7 +25,7 @@ const showMenu = () => {
                     Accueil
                     </Link>
                 </li>
-                <li v-if="$page.props.auth.user" :class="{
+                <li v-if="$page.props.auth && $page.props.auth.user" :class="{
                     'text-tertiary border-tertiary':
                         $page.url === '/dashboard' || $page.url === '/event',
                 }">
@@ -50,6 +50,12 @@ const showMenu = () => {
                     <Link :href="route('faqs')"
                         class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
                     FAQs
+                    </Link>
+                </li>
+                <li v-if="$page.props.auth && $page.props.auth.user">
+                    <Link method="post" :href="route('logout')" as="button"
+                        class="flex items-center px-4 -mb-1 border-b-2 border-transparent hover:text-tertiary hover:border-tertiary">
+                    Déconnexion
                     </Link>
                 </li>
             </ul>

@@ -67,30 +67,24 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Organizer::factory(5)->create()->each(function ($organizer) {
-            User::factory()->create([
+            User::factory(2)->create([
                 'role' => 'admin',
                 'organizer_id' => $organizer->id
             ]);
-            User::factory(2)->create([
+            User::factory(5)->create([
                 'role' => 'assistant',
                 'organizer_id' => $organizer->id
             ]);
-            Event::factory(3)->create([
+            Event::factory(10)->create([
                 'organizer_id' => $organizer->id,
                 'event_category_id' => rand(1, EventCategory::all()->count())
             ])->each(function ($event) {
-                Pass::factory()->create([
+                Pass::factory(3)->create([
                     'event_id' => $event->id
                 ]);
                 Comment::factory(10)->create([
                     'email' => fake()->email(),
                     'text' => fake()->text(100),
-                    'event_id' => $event->id
-                ]);
-                Pass::factory()->create([
-                    'type' => 'Silver',
-                    'price' => fake()->randomFloat(0, 2000, 50000),
-                    'available_quantity' => fake()->randomFloat(0, 20, 5000),
                     'event_id' => $event->id
                 ]);
             });

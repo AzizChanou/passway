@@ -18,8 +18,8 @@ class PassFactory extends Factory
     {
         return [
             'type' => 'Silver',
-            'price' => fake()->numberBetween(2000, 50000),
-            'available_quantity' => fake()->numberBetween(20, 1000),
+            'price' => fake()->randomFloat(0, 2000, 50000),
+            'available_quantity' => fake()->randomFloat(0, 20, 5000),
 
         ];
     }

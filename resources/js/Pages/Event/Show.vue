@@ -3,7 +3,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import generateRandomHexColor from '@/helpers/generateRandomHexColor';
 import shareLink from '@/helpers/shareLink';
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, computed } from 'vue';
 import {
     openKkiapayWidget,
     addKkiapayListener,
@@ -17,12 +17,14 @@ const props = defineProps({
 })
 
 const ticketsForm = useForm({
-    name: 'Kyogre',
+    name: 'Kyogre Groudon',
     phone: '69457894',
     email: 'azobo@yopmail.fr',
     address: 'St. Rita',
     quantity: 1,
-    pass_id: null
+    total_amount: 1,
+    pass: null,
+    event_id: props.event.id
 })
 
 const commentForm = useForm({
@@ -31,12 +33,17 @@ const commentForm = useForm({
     event_id: props.event?.id,
 });
 
+const amount = computed((ticketsForm) => {
+    console.log(ticketsForm);
+    return 500;
+})
+
 const pay = () => {
     if (navigator.onLine) {
         openKkiapayWidget({
             callback: "",
             data: "",
-            amount: 0,
+            amount: amount,
             api_key: "40c5cb501c9611ed995cd39f617b9df2",
             paymentmethod: "momo",
             theme: "#0f213a",
@@ -60,12 +67,15 @@ const successHandler = (response) => {
 };
 
 const submitOrder = () => {
+    ticketsForm.post(route('order.store'), {
+        //onFinish: () => ticketsForm.reset()
+    })
     console.log(ticketsForm);
 }
 
 const submitComment = () => {
     commentForm.post(route('comment.store', {
-        onFinish: () => commentForm.reset
+        onFinish: () => commentForm.reset()
     }));
 };
 
@@ -119,15 +129,15 @@ onUnmounted(() => {
                 <form @submit.prevent class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full sm:col-span-3">
                         <label for="website" class="text-sm">Type de pass</label>
-                        <select v-model="ticketsForm.pass_id" id="website"
+                        <select v-model="ticketsForm.pass" id="website"
                             class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400">
                             <option disabled selected value>--Selectionner type de pass--</option>
-                            <option v-for="passe in event?.passes" :key="passe?.id" :value="passe?.id" required>
-                                {{ `${passe?.type} - ${passe?.price} CFA` }}
+                            <option v-for="pass in event?.passes" :key="pass?.id" :value="pass" required>
+                                {{ `${pass?.type} - ${pass?.price} CFA` }}
                             </option>
                         </select>
-                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.pass_id">
-                            {{ ticketsForm.errors.pass_id }}
+                        <div class="text-sm text-red-600" v-if="ticketsForm.errors.pass">
+                            {{ ticketsForm.errors.pass }}
                         </div>
                     </div>
                     <div class="col-span-full sm:col-span-3">
@@ -171,7 +181,7 @@ onUnmounted(() => {
                         </div>
                     </div>
                     <div class="col-span-full flex flex-row-reverse">
-                        <MazBtn @click="pay" :disabled="ticketsForm.quantity <= 0 && ticketsForm.quantity === null"
+                        <MazBtn @click="submitOrder" :disabled="ticketsForm.quantity <= 0 && ticketsForm.quantity === null"
                             :class="{ 'opacity-50': ticketsForm.quantity <= 0 && ticketsForm.quantity === null }"
                             class="bg-primary text-white font-medium p-2 col-span-3 snap-end reverse rounded">
                             Acheter

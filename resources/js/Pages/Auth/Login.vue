@@ -39,14 +39,20 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex justify-between items-center mt-4">
                 <Link :href="route('password.request')" class="underline text-sm text-slate-400">
                 Mot de passe oublié?
                 </Link>
 
-                <MazBtn @click="submit" class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <MazBtn @click="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Se connecter
                 </MazBtn>
+            </div>
+            <div class="flex flex-col items-center space-y-3 text-sm text-slate-400">
+                <span>ou</span>
+                <Link :href="route('register')" class="underline">
+                Créer un compte?
+                </Link>
             </div>
         </form>
     </AuthenticatedLayout>

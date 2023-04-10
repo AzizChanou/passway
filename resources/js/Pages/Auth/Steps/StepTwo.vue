@@ -4,26 +4,23 @@ const props = defineProps(["formValues"]);
 
 <template>
     <div>
-        <Mazinput :hint="props.formValues.errors.password" :error="!!props.formValues.errors.password" id="password"
-            type="password" label="Mot de passe" class="mt-1" v-model="props.formValues.password" required
-            autocomplete="current-password" />
+        <Mazinput :hint="formValues.errors.organizer_name" :error="!!formValues.errors.organizer_name" id="organizer_name"
+            type="text" label="Nom de l'organisation" class="mt-1" v-model="formValues.organizer_name" required
+            autocomplete="organizer_name" />
     </div>
     <div class="mt-4">
-        <Mazinput :hint="props.formValues.errors.password_confirmation"
-            :error="!!props.formValues.errors.password_confirmation" id="password_confirmation" type="password"
-            label="Confirmer mot de passe" class="mt-1" v-model="props.formValues.password_confirmation" required
-            autocomplete="current-password_confirmation" />
+        <Mazinput :hint="formValues.errors.organizer_email" :error="!!formValues.errors.organizer_email"
+            id="organizer_email" type="email" label="Email de l'organisation" class="mt-1"
+            v-model="formValues.organizer_email" required autocomplete="organizer_email" />
     </div>
     <div class="mt-4">
-        <Mazinput :hint="props.formValues.errors.password_confirmation"
-            :error="!!props.formValues.errors.password_confirmation" id="password_confirmation" type="password"
-            label="Confirmer mot de passe" class="mt-1" v-model="props.formValues.password_confirmation" required
-            autocomplete="current-password_confirmation" />
+        <Mazinput :hint="formValues.errors.organizer_phone" :error="!!formValues.errors.organizer_phone"
+            id="organizer_phone" type="text" label="Telephone de l'organisation" class="mt-1"
+            v-model="formValues.organizer_phone" required autocomplete="organizer_phone" />
     </div>
     <div class="mt-4">
-        <Mazinput :hint="props.formValues.errors.password_confirmation"
-            :error="!!props.formValues.errors.password_confirmation" id="password_confirmation" type="password"
-            label="Confirmer mot de passe" class="mt-1" v-model="props.formValues.password_confirmation" required
-            autocomplete="current-password_confirmation" />
+        <Mazinput :hint="formValues.errors.organizer_address" :error="!!formValues.errors.organizer_address"
+            id="organizer_address" type="text" label="Adresse de l'organisation" class="mt-1"
+            v-model="formValues.organizer_address" required autocomplete="organizer_address" />
     </div>
 </template>

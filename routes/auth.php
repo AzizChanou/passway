@@ -64,14 +64,13 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
+    Route::get('/qrcode', [UserController::class, 'scanIndex'])
+        ->name('qrcode.index');
 
-    Route::resource('order', OrderController::class);
-
-    Route::get('/qrcode', [UserController::class, 'scan'])
+    Route::post('/qrcode', [UserController::class, 'scan'])
         ->name('qrcode.scan');
 
-    Route::resource('user', UserController::class);
-
+    // Route::middleware('IsAdmin')->group(function () {
 
     Route::resource('event', EventController::class)->except(['show']);
 
@@ -79,6 +78,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('pass', PassController::class)->except(['index', 'show']);
 
+    Route::resource('order', OrderController::class)->except('store');
+    // });
+
+    Route::resource('user', UserController::class);
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
     })->middleware('verified')->name('dashboard');

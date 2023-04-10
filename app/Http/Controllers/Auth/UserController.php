@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,9 +36,24 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function scan()
+    public function scanIndex()
     {
         return Inertia::render('Admin/ScanQR');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function scan($code)
+    {
+        $scan_result = Ticket::where('code', $code);
+        dd($scan_result);
+
+        if (Ticket::where('code', $code)) {
+            return Inertia::render('Admin/ScanQR');
+        } else {
+            return Inertia::render('Admin/ScanQR');
+        }
     }
 
     /**
