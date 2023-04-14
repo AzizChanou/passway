@@ -13,7 +13,6 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { installToaster } from 'maz-ui';
 import MazBtn from 'maz-ui/components/MazBtn';
 import Mazinput from 'maz-ui/components/MazInput';
-import MazCheckBox from 'maz-ui/components/MazCheckBox';
 import MazDropzone from 'maz-ui/components/MazDropzone';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
@@ -39,7 +38,6 @@ createInertiaApp({
             .use(installToaster, toasterOptions)
             .component('MazBtn', MazBtn)
             .component('Mazinput', Mazinput)
-            .component('MazCheckBox', MazCheckBox)
             .component('MazDropzone', MazDropzone)
             .mount(el);
     },
