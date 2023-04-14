@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="flex flex-col min-w-full max-w-sm p-4 hover:scale-105 duration-300 overflow-hidden bg-slate-100 rounded-lg shadow">
+    <div class="flex flex-col min-w-full max-w-sm p-4 hover:scale-95 duration-300 overflow-hidden bg-slate-100 rounded-lg shadow">
         <div class="flex justify-between">
             <div class="flex space-x-4">
                 <img :src="event?.organizer?.picture_path" class="object-cover w-10 h-10 rounded-full shadow">

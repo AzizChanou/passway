@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketController;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,9 @@ Route::get('/', function () {
 
 Route::get('/search', [EventController::class, 'rechercheEvenements'])
     ->name('search');
+
+Route::get('/code', [TicketController::class, 'show'])
+    ->name('qrcode.show');
 
 Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
 

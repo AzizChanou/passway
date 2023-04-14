@@ -25,11 +25,12 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onStart: () => console.log(form),
-        onError: (err) => console.log(err ? formError.value = true : null),
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    console.log(form);
+    /*  form.post(route('register'), {
+         onStart: () => console.log(form),
+         onError: (err) => console.log(err ? formError.value = true : null),
+         onFinish: () => form.reset('password', 'password_confirmation'),
+     }); */
 };
 
 const next = () => {

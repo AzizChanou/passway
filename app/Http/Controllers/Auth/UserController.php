@@ -44,15 +44,19 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function scan($code)
+    public function scan(Request $request)
     {
-        $scan_result = Ticket::where('code', $code);
-        dd($scan_result);
+        $ticket = Ticket::where('code', $request->code)->first();
 
-        if (Ticket::where('code', $code)) {
-            return Inertia::render('Admin/ScanQR');
+        if ($ticket) {
+            if ($ticket->used == 1) {
+                return back()->with('error', 'Ce tickets a deja ete utiliser !');
+            } else {
+                $ticket->update(['used' => 1]);
+                return back()->with('success', 'Ticket validé avec succes !');
+            }
         } else {
-            return Inertia::render('Admin/ScanQR');
+            return back()->with('error', 'Tickets invalide !');
         }
     }
 

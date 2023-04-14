@@ -14,6 +14,7 @@ use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 use Nette\Utils\Random;
 
 class OrderController extends Controller
@@ -82,8 +83,10 @@ class OrderController extends Controller
 
         SendOrderMailJob::dispatch($client, $tickets);
 
-        // return response()->json($tickets, 200);
-        return redirect()->back()->with('success', 'Tickets acheter avec succes !');
+        return Inertia::render('Qrcode/Index', [
+            'tickets' => $tickets,
+            'client' => $client
+        ])->with('success', 'Ticket(s) acheter avec succes !');
     }
 
     /**

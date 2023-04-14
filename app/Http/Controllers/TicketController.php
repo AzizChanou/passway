@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class TicketController extends Controller
 {
@@ -45,9 +47,9 @@ class TicketController extends Controller
      * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Ticket $ticket)
+    public function show(Redirect $params)
     {
-        //
+        return Inertia::render('Qrcode/Index');
     }
 
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 32);
+            $table->string('code', 32)->unique();
             $table->boolean('used')->default(0);
             $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('event_id')->constrained()->cascadeOnUpdate()->cascadeOnUpdate();
