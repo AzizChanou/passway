@@ -3,10 +3,7 @@ function shareLink(url, urlTitle) {
         navigator.share({
             title: urlTitle,
             url: url,
-        }).then(() => console.log('Shared'))
-            .catch((error) => console.log('Not Shared'))
-    } else {
-        console.log('non supporter');
+        })
     }
 };
 

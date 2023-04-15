@@ -16,7 +16,7 @@ class CommentController extends Controller
     public function store(StoreCommentRequest $request)
     {
         Comment::create($request->all());
-        return redirect()->back()->with('success', 'Commentaire poster !');
+        return redirect()->back()->with('flash.success', 'Commentaire poster !');
     }
 
     /**
@@ -28,6 +28,6 @@ class CommentController extends Controller
     public function destroy($id)
     {
         Comment::destroy($id);
-        return redirect()->back()->with('success', 'Commentaire supprimer !');
+        return redirect()->back()->with('flash.success', 'Commentaire supprimer !');
     }
 }

@@ -1,9 +1,9 @@
-/* import axios from 'axios';
+import axios from 'axios';
 import { Toast } from 'primevue/toast';
 
 const toast = axios.interceptors.response.use(
     (response) => {
-        console.log(response);
+        console.log('succccesssss', response);
         if (response.flash.success) {
             Toast.add({
                 severity: 'success',
@@ -15,6 +15,7 @@ const toast = axios.interceptors.response.use(
         return response;
     },
     (error) => {
+        console.log('errrrrorororor', error);
         Toast.add({
             severity: 'error',
             summary: 'Erreur',
@@ -25,4 +26,4 @@ const toast = axios.interceptors.response.use(
     }
 );
 
-export default toast; */
+export default toast;

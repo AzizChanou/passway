@@ -53,7 +53,7 @@ class EventController extends Controller
             'organizer_id' => auth()->user()->organizer->id,
             ...$request->except('picture')
         ]);
-        return redirect()->route('event.edit', $event->id)->with('success', 'Evenement creer !');
+        return redirect()->route('event.edit', $event->id)->with('flash.success', 'Evenement creer !');
     }
 
     /**
@@ -105,7 +105,7 @@ class EventController extends Controller
             'organizer_id' => auth()->user()->organizer->id,
             ...$request->except('picture')
         ]);
-        return redirect()->route('event.index')->with('success', 'Evenement mis a jour !');
+        return redirect()->route('event.index')->with('flash.success', 'Evenement mis a jour !');
     }
 
     /**
@@ -117,7 +117,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
-        return redirect()->back()->with('success', 'Evenement supprimer !');
+        return redirect()->back()->with('flash.success', 'Evenement supprimer !');
     }
 
     /**

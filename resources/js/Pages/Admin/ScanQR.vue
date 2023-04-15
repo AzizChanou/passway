@@ -1,16 +1,16 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm } from "@inertiajs/vue3";
 import { QrcodeStream } from "qrcode-reader-vue3";
 import { ref, computed } from "vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import playSound from '@/helpers/playSound'
-import { router } from '@inertiajs/vue3'
+import playSound from "@/helpers/playSound";
+import { router } from "@inertiajs/vue3";
 
-const isValid = ref(undefined)
-const isTicket = ref(null)
-const camera = ref("auto")
-const success = '/assets/audio/success.mp3'
-const error = '/assets/audio/error.mp3'
+const isValid = ref(undefined);
+const isTicket = ref(null);
+const camera = ref("auto");
+const success = "/assets/audio/success.mp3";
+const error = "/assets/audio/error.mp3";
 
 const validationPending = computed(() => {
     return isValid.value === undefined && camera.value === "off";
@@ -18,12 +18,11 @@ const validationPending = computed(() => {
 
 const validationSuccess = computed(() => {
     return isValid.value === true;
-})
+});
 
 const validationFailure = computed(() => {
     return isValid.value === false;
-})
-
+});
 
 const onInit = (promise) => {
     promise.catch(console.error).then(resetValidationState);
@@ -44,19 +43,22 @@ const turnCameraOff = () => {
 };
 
 const onDecode = async (content) => {
-
     turnCameraOff();
 
     isTicket.value = await content.startsWith("pass");
 
     if (isTicket.value) {
         try {
-            const response = router.post(route('qrcode.scan'), { code: content }, {
-                replace: false,
-                preserveState: false,
-                preserveScroll: false,
-            })
-            console.log(response);
+            const response = router.post(
+                route("qrcode.scan"),
+                { code: content },
+                {
+                    replace: false,
+                    preserveState: false,
+                    preserveScroll: false,
+                }
+            );
+            //console.log(response);
             /*  if (response.success) {
                 console.log(response);
                 isValid = true;
@@ -66,12 +68,12 @@ const onDecode = async (content) => {
         } catch (error) {
             console.error(error);
         }
-        playSound(success)
+        //playSound(success)
     } else {
         playSound(error);
         isValid.value = false;
         setTimeout(() => {
-            isValid.value = undefined
+            isValid.value = undefined;
         }, 1000);
     }
 
@@ -85,30 +87,44 @@ const onDecode = async (content) => {
         <div class="h-full">
             <h1 class="text-2xl px-6 font-bold font-sans">QR Code</h1>
             <div class="px-6 h-[400px] pt-6 rounded-md">
-                <div v-if="validationSuccess"
-                    class="h-full flex items-center justify-center bg-green-500 text-white text-center text-9xl">
+                <div
+                    v-if="validationSuccess"
+                    class="h-full flex items-center justify-center bg-green-500 text-white text-center text-9xl"
+                >
                     <div class="flex flex-col">
                         <i class="fi-sr-check text-9xl"></i>
-                        <span class="text-lg text-bouff-secondarytwo font-medium">Code valide, patienter un instant !</span>
+                        <span
+                            class="text-lg text-bouff-secondarytwo font-medium"
+                            >Code valide, patienter un instant !</span
+                        >
                     </div>
                 </div>
 
-                <div v-else-if="validationFailure"
-                    class="h-full flex items-center justify-center text-center text-lg text-white font-medium bg-red-900">
+                <div
+                    v-else-if="validationFailure"
+                    class="h-full flex items-center justify-center text-center text-lg text-white font-medium bg-red-900"
+                >
                     <div class="flex flex-col">
                         <i class="fi-sr-cross-small text-9xl"></i>
                         <span>Code invalide, veuillez réesayer !</span>
                     </div>
                 </div>
 
-                <div v-else-if="validationPending"
-                    class="h-full flex items-center justify-center text-center text-lg text-white font-medium bg-yellow-500">
+                <div
+                    v-else-if="validationPending"
+                    class="h-full flex items-center justify-center text-center text-lg text-white font-medium bg-yellow-500"
+                >
                     <div class="flex flex-col">
                         <i class="fi-sr-loading text-9xl animate-spin"></i>
                         <span>Vérification en cours...</span>
                     </div>
                 </div>
-                <QrcodeStream v-else :camera="camera" @decode="onDecode" @init="onInit" />
+                <QrcodeStream
+                    v-else
+                    :camera="camera"
+                    @decode="onDecode"
+                    @init="onInit"
+                />
                 <div class="text-center mt-4 text-primary text-lg font-bold">
                     Scanner le code pour valider le ticket !
                 </div>

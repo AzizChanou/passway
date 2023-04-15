@@ -16,7 +16,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (!in_array(auth()->user()->role, ['root', 'admin'])) {
-            return redirect()->back()->with('error', 'Vous n\'etes pas autorisé(e) à effectuer cette opération');
+            return redirect()->back()->with('flash.error', 'Vous n\'etes pas autorisé(e) à effectuer cette opération');
         }
         return $next($request);
     }

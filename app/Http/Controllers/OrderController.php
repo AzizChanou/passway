@@ -86,7 +86,7 @@ class OrderController extends Controller
         return Inertia::render('Qrcode/Index', [
             'tickets' => $tickets,
             'client' => $client
-        ])->with('success', 'Ticket(s) acheter avec succes !');
+        ])->with('flash.success', 'Ticket(s) acheter avec succes !');
     }
 
     /**

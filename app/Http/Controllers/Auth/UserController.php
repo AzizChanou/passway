@@ -30,7 +30,7 @@ class UserController extends Controller
             ...$request->except(['password', 'confirm_password']),
         ]);
 
-        return redirect()->route('profile.index')->with('success', 'Utilisateur creer !');
+        return redirect()->route('profile.index')->with('flash.success', 'Utilisateur creer !');
     }
 
     /**
@@ -50,13 +50,14 @@ class UserController extends Controller
 
         if ($ticket) {
             if ($ticket->used == 1) {
-                return back()->with('error', 'Ce tickets a deja ete utiliser !');
+                dd($ticket);
+                return back()->with('flash.error', 'Ce tickets a deja ete utiliser !');
             } else {
                 $ticket->update(['used' => 1]);
-                return back()->with('success', 'Ticket validé avec succes !');
+                return back()->with('flash.success', 'Ticket validé avec succes !');
             }
         } else {
-            return back()->with('error', 'Tickets invalide !');
+            return back()->with('flash.error', 'Tickets invalide !');
         }
     }
 

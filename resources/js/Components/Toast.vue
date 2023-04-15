@@ -1,74 +1,71 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
-import { useToast } from 'maz-ui';
-import { onBeforeMount, onMounted, ref, watch } from 'vue';
+import { usePage } from "@inertiajs/vue3";
+import { useToast } from "maz-ui";
+import { onMounted, reactive, ref, watch } from "vue";
 
 const { toast } = useToast();
 const page = usePage();
-const flash = ref(page.props.flash);
+const flash = reactive(page.props.flash);
 
 function showInfo(message) {
-    toast.info(message)
+    if (message != null) toast.info(message);
 }
 
 function showError(message) {
-    toast.error(message)
+    if (message != null) toast.error(message);
 }
 
 function showWarning(message) {
-    toast.warning(message)
+    if (message != null) toast.warning(message);
 }
 
 function showSuccess(message) {
-    toast.success(message)
+    if (message != null) toast.success(message);
 }
 
-onMounted(() => {
-   /*  this.$inertia.share('flash', (newFlash) => {
-        console.table(newFlash, "Test OKKKKKKKK");
-        switch (newFlash) {
-            case newFlash.success:
-                showSuccess(newFlash.success);
-                break;
-            case newFlash.info:
-                showInfo(newFlash.info);
-                break;
-            case newFlash.error:
-                showError(newFlash.error);
-                break;
-            case newFlash.warning:
-                showWarning(newFlash.warning);
-                break;
-            default:
-                break;
-        }
-    }) */
-})
-
-
-/* showSuccess(newFlash.success)
-watch(() => props.value,
-    (newFlash) => {
-        console.table(newFlash, "Test OKKKKKKKK");
-        switch (newFlash) {
-            case newFlash.success:
-                showSuccess(newFlash.success);
-                break;
-            case newFlash.info:
-                showInfo(newFlash.info);
-                break;
-            case newFlash.error:
-                showError(newFlash.error);
-                break;
-            case newFlash.warning:
-                showWarning(newFlash.warning);
-                break;
-            default:
-                break;
-        }
+watch(
+    () => flash.success,
+    (new_flash) => {
+        console.log(new_flash);
+        showSuccess(new_flash);
     },
-    { deep: true }
-); */
+    {
+        immediate: true,
+    }
+);
+
+watch(
+    () => flash.error,
+    (new_flash) => {
+        console.log(new_flash);
+        showError(new_flash);
+    },
+    {
+        immediate: true,
+    }
+);
+
+watch(
+    () => flash.info,
+    (new_flash) => {
+        console.log(new_flash);
+        showInfo(new_flash);
+    },
+    {
+        immediate: true,
+    }
+);
+
+watch(
+    () => flash.warning,
+    (new_flash) => {
+        console.log(new_flash);
+        showWarning(new_flash);
+    },
+    {
+        immediate: true,
+    }
+);
 </script>
 
 <template></template>

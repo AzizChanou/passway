@@ -27,7 +27,7 @@ Route::get('/', function () {
     return Inertia::render('Home/Index', [
         'events' => Event::getIncomingEvents(12),
         'categories' => EventCategory::all(),
-    ])->with('success', 'Test ok');
+    ]);
 })->name('home');
 
 Route::get('/search', [EventController::class, 'rechercheEvenements'])

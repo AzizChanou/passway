@@ -17,7 +17,7 @@ class PassController extends Controller
     public function store(StorePassRequest $request)
     {
         Pass::create($request->all());
-        return redirect()->back()->with('success', 'Pass creer !');
+        return redirect()->back()->with('flash.success', 'Pass creer !');
     }
 
     /**
@@ -52,6 +52,6 @@ class PassController extends Controller
     public function destroy(Pass $pass)
     {
         Pass::destroy($pass);
-        return redirect()->route('event.edit')->with('success', 'Pass supprimer !');
+        return redirect()->route('event.edit')->with('flash.success', 'Pass supprimer !');
     }
 }

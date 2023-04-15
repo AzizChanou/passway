@@ -77,6 +77,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Compte creer avec succes !');
+        return redirect()->route('dashboard')->with('flash.success', 'Compte creer avec succes !');
     }
 }
