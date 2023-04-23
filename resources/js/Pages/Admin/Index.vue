@@ -63,7 +63,7 @@ watch(modal.confirm, (confirm) => {
                         <td class="p-3">
                             <p>{{ user?.organizer?.name }}</p>
                         </td>
-                       <!--  <td class="flex flex-col md:flex-row justify-around p-2 space-y-1 md:space-x-1 items-center">
+                        <td class="flex flex-col md:flex-row justify-around p-2 space-y-1 md:space-x-1 items-center">
                             <Link :href="route('user.show', user.id)" class="p-2 rounded duration-300 hover:bg-slate-400">
                             <i class="fi-sr-eye text-sm text-primary"></i></Link>
                             <Link :href="route('user.edit', user.id)" as="button"
@@ -73,7 +73,7 @@ watch(modal.confirm, (confirm) => {
                                 @click="modal.toggleModal(true, 'Supprimer', null, `Voulez-vous supprimer l\'evenement ${user?.title} ?`)"
                                 class="p-2 rounded duration-300 hover:bg-slate-400">
                                 <i class="fi-sr-trash text-sm text-red-500"></i></span>
-                        </td> -->
+                        </td>
                     </tr>
                 </tbody>
             </table>
