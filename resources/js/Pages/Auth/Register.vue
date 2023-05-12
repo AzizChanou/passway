@@ -11,16 +11,16 @@ const step = ref(0);
 const formError = ref(false);
 
 const form = useForm({
-    name: "Aziz Abdoul",
-    phone: "66485160",
-    email: "azobo@yopmail.fr",
-    organizer_name: "Ultima",
-    organizer_email: "ultima@yopmail.fr",
-    organizer_phone: "69457894",
-    organizer_address: "Cotonou, St. Rita",
+    name: "",
+    phone: "",
+    email: "",
+    organizer_name: "",
+    organizer_email: "",
+    organizer_phone: "",
+    organizer_address: "",
     picture: null,
-    password: "96152342",
-    password_confirmation: "96152342",
+    password: "",
+    password_confirmation: "",
     terms: false,
 });
 

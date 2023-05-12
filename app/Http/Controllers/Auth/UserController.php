@@ -54,14 +54,19 @@ class UserController extends Controller
 
         if ($ticket) {
             if ($ticket->used == 1) {
-                dd($ticket);
-                return back()->with('flash.error', 'Ce tickets a deja ete utiliser !');
+                return Inertia::render('Admin/ScanQR', [
+                    'is_used' => false
+                ]);
             } else {
                 $ticket->update(['used' => 1]);
-                return back()->with('flash.success', 'Ticket validé avec succes !');
+                return Inertia::render('Admin/ScanQR', [
+                    'is_used' => true
+                ]);
             }
         } else {
-            return back()->with('flash.error', 'Tickets invalide !');
+            return Inertia::render('Admin/ScanQR', [
+                'is_used' => false
+            ]);
         }
     }
 

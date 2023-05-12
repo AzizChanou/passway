@@ -1,19 +1,31 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
 import { QrcodeStream } from "qrcode-reader-vue3";
-import { ref, computed } from "vue";
+import { ref, computed, onUpdated, onMounted } from "vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import playSound from "@/helpers/playSound";
 import { router } from "@inertiajs/vue3";
+
+const props = defineProps({
+    is_used: null,
+});
 
 const isValid = ref(undefined);
 const isTicket = ref(null);
 const camera = ref("auto");
 const success = "/assets/audio/success.mp3";
 const error = "/assets/audio/error.mp3";
+const scanForm = useForm({
+    code: null,
+});
+
+onUpdated(() => {
+    isValid.value = props.is_used;
+    console.log(props.is_used);
+});
 
 const validationPending = computed(() => {
-    return isValid.value === undefined && camera.value === "off";
+    return isValid.value == undefined && camera.value === "off";
 });
 
 const validationSuccess = computed(() => {
@@ -48,7 +60,11 @@ const onDecode = async (content) => {
     isTicket.value = await content.startsWith("pass");
 
     if (isTicket.value) {
-        try {
+        scanForm.post(route("qrcode.scan"), {
+            onSuccess: () => playSound(success),
+        });
+        isValid.value = true;
+        /*  try {
             const response = router.post(
                 route("qrcode.scan"),
                 { code: content },
@@ -58,17 +74,9 @@ const onDecode = async (content) => {
                     preserveScroll: false,
                 }
             );
-            //console.log(response);
-            /*  if (response.success) {
-                console.log(response);
-                isValid = true;
-            } else {
-                console.log(response);
-            } */
         } catch (error) {
             console.error(error);
-        }
-        //playSound(success)
+        } */
     } else {
         playSound(error);
         isValid.value = false;

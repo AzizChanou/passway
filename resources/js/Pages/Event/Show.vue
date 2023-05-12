@@ -18,10 +18,10 @@ const props = defineProps({
 });
 
 const ticketsForm = useForm({
-    name: "Kyogre Groudon",
-    phone: "69457894",
-    email: "azobo@yopmail.fr",
-    address: "St. Rita",
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
     quantity: 1,
     total_amount: amount.value,
     pass: {},
