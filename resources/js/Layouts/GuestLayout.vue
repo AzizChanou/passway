@@ -9,7 +9,7 @@ import Toast from '@/Components/Toast.vue';
 
 <template>
     <div class="min-h-screen mx-auto bg-dots-darker bg-slate-200">
-        <Toast />
+         
         <MobileNavMenu />
         <NavBar />
         <Modal />

@@ -55,15 +55,19 @@ class RegisteredUserController extends Controller
 
         $user = null;
 
-        DB::transaction(function () use ($request, &$user) {
+        $picture_name = $request->organizer_name . '.' . $request->file('picture')->extension();
+        $picture_path = env('APP_URL') . "/storage" . '/' . $request->file('picture')->storeAs('organizer_picture', $picture_name, 'public');
+
+        DB::transaction(function () use ($request, &$user, &$picture_path) {
             $organizer = Organizer::create([
                 'name' => $request->organizer_name,
                 'phone' => $request->organizer_phone,
                 'address' => $request->organizer_address,
                 'email' => $request->organizer_email,
+                'picture_path' => $picture_path,
             ]);
 
-            $user = User::create([
+            $user = new User([
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'email' => $request->email,
@@ -71,6 +75,8 @@ class RegisteredUserController extends Controller
                 'organizer_id' => $organizer->id,
                 'password' => Hash::make($request->password),
             ]);
+
+            $organizer->users()->save($user);
         });
 
         event(new Registered($user));

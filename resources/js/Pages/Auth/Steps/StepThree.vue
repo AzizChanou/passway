@@ -1,12 +1,10 @@
 <script setup>
-import { ref } from "vue";
 import FileUpload from "primevue/fileupload";
 
 const props = defineProps(["formValues"]);
 
 const onUpload = (e) => {
-    props.formValues.picture_path = e.taget[0];
-    console.log(e);
+    props.formValues.picture = e.files[0];
 };
 </script>
 
@@ -15,14 +13,13 @@ const onUpload = (e) => {
         <FileUpload
             class="bg-white w-full p-3 rounded-md"
             mode="basic"
-            name="picture_path"
-            chooseLabel="Choisissez une image.."
+            name="picture"
+            chooseLabel="Choisir une image.."
             chooseIcon="pi pi-fw pi-plus"
-            v-model="formValues.picture_path"
             accept="image/*"
             :maxFileSize="2000000"
             customUpload
-            @onSelect="onUpload(e)"
+            @select="onUpload"
         />
     </div>
     <div class="mt-4">

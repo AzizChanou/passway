@@ -23,7 +23,15 @@ class User extends Authenticatable
         'email',
         'role',
         'password',
+        'organizer_id'
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.

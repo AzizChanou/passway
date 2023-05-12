@@ -21,7 +21,6 @@ const submitEvent = () => {
     eventForm.post(route('event.store'), {
         _method: 'put'
     })
-    console.log(eventForm);
 }
 </script>
 

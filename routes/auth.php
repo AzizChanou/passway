@@ -88,10 +88,10 @@ Route::middleware('auth')->group(function () {
 
     //Profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/{user}', [ProfileController::class, 'delete'])->name('profile.delete');
 });
 
 Route::get('event/{event}', [EventController::class, 'show'])->name('event.show');

@@ -17,6 +17,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = auth()->user()->organizer->id;
+
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string',
@@ -24,11 +26,13 @@ class UserController extends Controller
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        User::create([
-            'organizer_id' => 2,
-            'password' => Hash::make($request->password),
+        $user = new User([
             ...$request->except(['password', 'confirm_password']),
+            'organizer_id' => $user_id,
+            'password' => Hash::make($request->password),
         ]);
+
+        $user->save();
 
         return redirect()->route('profile.index')->with('flash.success', 'Utilisateur creer !');
     }

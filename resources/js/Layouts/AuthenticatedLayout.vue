@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <div class="bg-dots-lighter min-h-screen mx-auto bg-primary flex items-center justify-center">
         <div class="w-full flex flex-col items-center space-y-4">
-            <Toast />
+             
             <Link :href="route('home')">
             <Logo color="light" class="h-16 p-2" />
             </Link>

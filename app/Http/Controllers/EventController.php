@@ -11,6 +11,7 @@ use App\Models\Pass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Termwind\Components\Dd;
 
 class EventController extends Controller
 {
@@ -53,7 +54,7 @@ class EventController extends Controller
             'organizer_id' => auth()->user()->organizer->id,
             ...$request->except('picture')
         ]);
-        return redirect()->route('event.edit', $event->id)->with('flash.success', 'Evenement creer !');
+        return redirect()->route('event.index')->with('flash.success', 'Evenement creer !');
     }
 
     /**
@@ -98,13 +99,13 @@ class EventController extends Controller
         if (false) {
             $picture_name = auth()->user()->name . '_' . $request->title . '.' . $request->file('picture')->extension();
             $picture_path = env('APP_URL') . "/storage" . '/' . $request->file('picture')->storeAs('event_picture', $picture_name, 'public');
-            dd('has file>>', $picture_path);
         }
         $event->update([
             'picture_path' => $picture_path ? $picture_path : $event->picture_path,
             'organizer_id' => auth()->user()->organizer->id,
             ...$request->except('picture')
         ]);
+        $event->save();
         return redirect()->route('event.index')->with('flash.success', 'Evenement mis a jour !');
     }
 
@@ -117,7 +118,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
-        return redirect()->back()->with('flash.success', 'Evenement supprimer !');
+        return redirect()->route('event.index')->with('flash.success', 'Evenement supprimer !');
     }
 
     /**

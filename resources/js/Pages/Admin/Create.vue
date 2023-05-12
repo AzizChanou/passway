@@ -12,7 +12,6 @@ const userForm = useForm({
 })
 
 const submitUser = () => {
-    console.log(userForm);
     userForm.post(route('user.store'));
 }
 </script>

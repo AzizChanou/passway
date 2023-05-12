@@ -28,7 +28,7 @@ import { Head, Link } from "@inertiajs/vue3";
                     >Evenements</span
                 >
             </Link>
-            <Link
+            <!-- <Link
                 :href="route('event.create')"
                 class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300"
             >
@@ -37,7 +37,7 @@ import { Head, Link } from "@inertiajs/vue3";
                     class="text-xl font-semibold font-mono uppercase text-primary"
                     >Paiement</span
                 >
-            </Link>
+            </Link> -->
             <Link
                 :href="route('qrcode.index')"
                 class="bg-slate-100 rounded flex flex-col justify-center shadow-sm items-center p-4 hover:scale-95 duration-300"
