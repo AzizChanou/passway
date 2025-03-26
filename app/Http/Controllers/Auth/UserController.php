@@ -65,7 +65,7 @@ class UserController extends Controller
             }
         } else {
             return Inertia::render('Admin/ScanQR', [
-                'is_used' => false
+                'exist' => false
             ]);
         }
     }

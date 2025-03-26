@@ -34,7 +34,8 @@ const onDetecte = async (content) => {
   isLoading.value = true;
   scanForm.post(route("qrcode.scan"), {
     onSuccess: (response) => {
-      if (response.props.is_used) isValid.value = false;
+      if (response.props.exist === false) isValid.value = false;
+      else if (response.props.is_used) isValid.value = false;
       else isValid.value = true;
       playSound(success);
     },
@@ -43,10 +44,10 @@ const onDetecte = async (content) => {
       playSound(error);
     },
     onFinish: () => {
-      isLoading.value = false;
       setTimeout(() => {
+        isLoading.value = false;
         isValid.value = undefined;
-      }, 1000);
+      }, 5000);
     },
   });
 };
