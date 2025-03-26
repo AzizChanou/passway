@@ -11,7 +11,17 @@ use App\Models\Organizer;
 use App\Models\Pass;
 use App\Models\Ticket;
 use App\Models\User;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -66,27 +76,44 @@ class DatabaseSeeder extends Seeder
             'description' => 'Ils incluent des festivals de musique, de cinéma ou d\'art, des expositions, des spectacles de danse ou de théâtre, des événements littéraires, des salons de livres, etc.',
         ]);
 
-        Organizer::factory(5)->create()->each(function ($organizer) {
-            User::factory(2)->create([
+        Organizer::factory(1)->create()->each(function ($organizer) {
+            User::factory(1)->create([
                 'role' => 'admin',
                 'organizer_id' => $organizer->id
             ]);
-            User::factory(5)->create([
-                'role' => 'assistant',
-                'organizer_id' => $organizer->id
-            ]);
-            Event::factory(10)->create([
+            Event::factory(1)->create([
+                'title' => 'La nuit du Ramadan',
+                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, eum.',
                 'organizer_id' => $organizer->id,
                 'event_category_id' => rand(1, EventCategory::all()->count())
             ])->each(function ($event) {
-                Pass::factory(3)->create([
+                Pass::factory(1)->create([
                     'event_id' => $event->id
                 ]);
-                Comment::factory(10)->create([
-                    'email' => fake()->email(),
-                    'text' => fake()->text(100),
-                    'event_id' => $event->id
-                ]);
+
+                Ticket::factory(400)->create([
+                    'event_id' => $event->id,
+                ])->each(function ($ticket) {
+
+                    $writer = new PngWriter();
+                    $i = 1;
+
+                    $logo = Logo::create(public_path('assets/img/logo_dark.png'))
+                        ->setResizeToWidth(100);
+
+                    $qr_code = QrCode::create($ticket->code)
+                        ->setEncoding(new Encoding('UTF-8'))
+                        ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+                        ->setSize(400)
+                        ->setMargin(10)
+                        ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+                        ->setForegroundColor(new Color(0, 0, 0))
+                        ->setBackgroundColor(new Color(255, 255, 255));
+
+                    $image_content = $writer->write($qr_code, $logo);
+
+                    Storage::put('public/qrcodes/' . Str::random(4) . '_' . $i . '.png', $image_content->getString());
+                });
             });
         });
     }

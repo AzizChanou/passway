@@ -17,7 +17,7 @@ class TicketFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "code" => $this->faker->unique()->regexify('[A-Z0-9]{32}')
         ];
     }
 }

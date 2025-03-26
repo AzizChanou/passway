@@ -55,7 +55,4 @@ Route::inertia('/cgu', 'Infos/Cgu')
 Route::inertia('cgv', 'Infos/Cgv')
     ->name('cgv');
 
-Route::inertia('stats', 'Orphan/Stat')
-    ->name('stats');
-
 require __DIR__ . '/auth.php';

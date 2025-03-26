@@ -53,14 +53,14 @@ class UserController extends Controller
         $ticket = Ticket::where('code', $request->code)->first();
 
         if ($ticket) {
-            if ($ticket->used == 1) {
+            if ($ticket->used === 1) {
                 return Inertia::render('Admin/ScanQR', [
-                    'is_used' => false
+                    'is_used' => true
                 ]);
             } else {
                 $ticket->update(['used' => 1]);
                 return Inertia::render('Admin/ScanQR', [
-                    'is_used' => true
+                    'is_used' => false
                 ]);
             }
         } else {

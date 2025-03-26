@@ -18,6 +18,7 @@ use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Mail\Attachment;
+use Illuminate\Support\Facades\Storage;
 
 class TicketsMail extends Mailable
 {
@@ -80,6 +81,8 @@ class TicketsMail extends Mailable
                 ->setBackgroundColor(new Color(255, 255, 255));
 
             $image_content = $writer->write($qr_code, $logo);
+
+            Storage::put('public/qrcodes/' . $this->client->name . '_' . $i . '.png', $image_content->getString());
 
             $attachment =  Attachment::fromData(fn () => $image_content->getString(), $this->client->name . '_' . $i++ . '.png')
                 ->withMime($image_content->getMimeType());
