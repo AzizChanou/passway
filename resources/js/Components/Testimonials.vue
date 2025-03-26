@@ -1,5 +1,5 @@
 <script setup>
-import Testimonial from "@/components/Testimonial.vue";
+import Testimonial from "@/Components/Testimonial.vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Pagination } from "swiper";
 import testimonials from "@/db/testimonials.js";
