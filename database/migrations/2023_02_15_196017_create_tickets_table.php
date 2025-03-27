@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('code', 32);
-            $table->boolean('used')->default(0);
+            $table->boolean('used')->default(false);
             $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('event_id')->constrained()->cascadeOnUpdate()->cascadeOnUpdate();
             $table->timestamps();

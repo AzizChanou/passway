@@ -34,10 +34,13 @@ const onDetecte = async (content) => {
   isLoading.value = true;
   scanForm.post(route("qrcode.scan"), {
     onSuccess: (response) => {
-      if (response.props.exist === false) isValid.value = false;
-      else if (response.props.is_used) isValid.value = false;
-      else isValid.value = true;
-      playSound(success);
+      if (response.props.exist === false || response.props.is_used) {
+        isValid.value = false;
+        playSound(error);
+      } else {
+        isValid.value = true;
+        playSound(success);
+      }
     },
     onError: () => {
       isValid.value = false;
